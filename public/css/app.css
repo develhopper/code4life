@@ -1,0 +1,305 @@
+@font-face {
+	font-family: 'Samim';
+	src: url('../webfonts/Samim.eot');
+	src: url('../webfonts/Samim.eot?#iefix') format('embedded-opentype'), url('../webfonts/Samim.woff2') format('woff2'), url('../webfonts/Samim.woff') format('woff'), url('../webfonts/Samim.ttf') format('truetype');
+	font-weight: normal;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: Samim, Arial, Helvetica, sans-serif;
+}
+
+.main {
+	margin-top: 55px;
+}
+
+.bg-teal {
+	color: white;
+	background: #00695C !important;
+}
+
+.bg-red {
+	background: #b71c1c !important;
+	color: white;
+}
+
+.bg-black {
+	background: black !important;
+	color: white;
+}
+
+.bg-amber {
+	color: white;
+	background: #FF8F00 !important;
+}
+
+.bg-none {
+	background: none;
+}
+
+.btn {
+	border: 1px none;
+	border-radius: 5px;
+	font-family: Samim, Arial, Helvetica, sans-serif;
+	margin-top: 15px;
+}
+.btn:hover{
+	box-shadow: 1px 1px 3px black;
+}
+
+.rtl {
+	direction: rtl;
+}
+
+.ltr {
+	direction: ltr;
+}
+
+.category {
+	margin: 5px;
+	margin-top: 10px;
+}
+
+.full-h {
+	height: 100%;
+}
+
+.post {
+	margin: 10px;
+}
+
+.post>.card-body{
+	min-height: 320px;
+}
+
+.post>.btn {
+	border-radius: 0;
+}
+
+.card-title * {
+	margin: 0;
+}
+
+.card-body {
+	margin-right: 10px;
+}
+
+.vnav {
+	display: flex;
+	flex-flow: column wrap;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.top-fixed {
+	position: fixed;
+	top: 0;
+	width: 100%;
+}
+
+.card {
+	box-shadow: -2px 2px 7px black;
+	background: #F5F5F5;
+}
+
+footer {
+	margin-top: 5px;
+	box-shadow: 0 -1px 3px black;
+}
+
+.row.center {
+	justify-content: center;
+}
+
+[class^="col-"].center {
+	align-items: center;
+}
+
+a {
+	color: inherit;
+	text-decoration: inherit;
+}
+
+form {
+	display: flex;
+	flex-flow: column wrap;
+	align-content: flex-start;
+	padding: 10px;
+}
+
+form.bg-dark .form-input{
+	background: #212121;
+	color:white
+}
+
+input,
+textarea {
+	margin-top: 5px;
+}
+
+input[type="text"],
+[type="email"],
+textarea,
+
+.form-input {
+	padding: 7px;
+	border-radius: 5px;
+	border: 3px solid black;
+	font-family: Samim, Arial, Helvetica, sans-serif;
+	margin-top: 15px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.form-input:focus {
+	border-color: #0288D1;
+}
+
+.order-1 {
+	order: 1;
+}
+
+.order-2 {
+	order: 2;
+}
+
+.order-0 {
+	order: 0;
+}
+
+.mt-auto {
+	margin-top: auto;
+}
+
+@media screen and (max-width:820px) {
+	.main {
+		flex-direction: column;
+	}
+	.side-bar {
+		order: 2;
+	}
+	.articles {
+		width: 100%;
+	}
+	footer .row {
+		flex-direction: column;
+		align-items: center;
+	}
+	[class^='col']{
+		min-width:100%;
+
+	}
+}
+
+.vnav .active {
+	background: #b71c1c
+}
+
+.nav-item {
+	text-align: center;
+}
+
+.dock {
+	z-index: 100;
+}
+
+.dock .nav-item {
+	padding: 20px;
+	font-size: 1.2em;
+}
+
+.dock .nav-item:hover {
+	background: #263238;
+	color: white;
+}
+
+.catbar {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.cat {
+	font-weight: bold;
+	margin-top: 10px;
+}
+
+.subcat {
+	margin-right: 15px;
+}
+
+.table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.table thead {
+	border-bottom: 1px solid black;
+}
+
+td,
+th {
+	padding: 10px;
+	text-align: right;
+}
+
+tbody tr:hover {
+	background: #B2EBF2 !important;
+}
+table.stripe tr:nth-child(even){
+	background:#f2f2f2
+}
+.dropdown {
+	display: inline-block;
+    position: relative;
+}
+
+.dropdown:hover .dropdown-content {
+	cursor: pointer;
+	display: block;
+}
+
+.dropdown-content {
+    display: none;
+    font-size: initial;
+	position: absolute;
+	padding: 0;
+	margin: 0;
+	min-width: 200px;
+	min-height: 100px;
+	overflow: hidden;
+	z-index: 1;
+}
+
+.dropdown.left .dropdown-content {
+	right: 100%;
+	top: 0;
+	border-radius: 5px 0 0 5px;
+	box-shadow: -3px 3px 7px black;
+}
+
+.dropdown-item {
+	list-style-type: none;
+	padding: 5px;
+	display: inline-block;
+	width: 100%;
+}
+
+.dropdown-item:hover {
+	background: white;
+	color: black
+}
+
+.red-hover:hover{
+    background:#d32f2f !important;
+    color:white !important;
+}
+
+.align-start{
+	align-items: flex-start;
+}

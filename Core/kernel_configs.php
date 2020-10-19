@@ -18,7 +18,7 @@ if (DEBUG) {
 }
 
 function asset($name){
-    return "/public/".$name;
+    return BASEURL."/public/".$name;
 }
 
 function _e($in){
@@ -49,7 +49,7 @@ function is_route($route){
 }
 
 function slug($var){
-    return preg_replace("/\s/","_",$var);
+    return strtolower(preg_replace("/\s/","_",$var));
 }
 
 function auth(){

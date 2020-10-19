@@ -10,4 +10,10 @@ class IndexController extends BaseController{
         $posts=$model->select()->get();
         $this->view("index.html",["posts"=>$posts]);
     }
+
+    public function post($slug){
+        $model=new Post();
+        $post=$model->select()->where("slug",$slug)->get()[0];
+        $this->view("post.html",["post"=>$post]);
+    }
 }

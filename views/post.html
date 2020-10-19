@@ -1,0 +1,37 @@
+@extends('partials/post.html')
+
+@section('content')
+<div class="card rtl post bg-grey">
+    <div class="card-title bg-red">
+        <h2>{{$post->title}}</h2>
+    </div>
+    <div class="card-body">
+        {{$post->body}}
+    </div>
+
+    <div class="card bg-blue-grey">
+        <div class="card-title"><h3>کامنت ها</h3></div>
+        <div class="card-body">
+
+            <div class="card bg-white">
+                <div class="card-title bg-red">اینجا کامنت جدید بنویسید</div>
+                <div class="card-body">
+                    <form action="#" method="post">
+                        <input class="form-input" type="text" name="name" id="name" placeholder="نام">
+                        <input class="form-input" type="email" name="email" id="" placeholder="ایمیل">
+                        <textarea class="form-input" name="comment" id="" cols="50" rows="10" placeholder="متن کامنت" style="resize: vertical;"></textarea>
+                        <input class="btn btn-primary ml-auto" type="submit" value="ارسال">
+                    </form>
+                </div>
+            </div>
+            <hr>
+            <div class="card post bg-black">
+                <div class="card-title bg-cyan">نام مستعار</div>
+                <div class="card-body">
+                    <p>متن کامنت</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

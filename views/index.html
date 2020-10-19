@@ -1,8 +1,17 @@
-<h1>Hello</h1>
+@extends('partials/base.html')
 
-@foreach($posts as $post)
-<h2>{{$post->title}}</h2>
-<pre>
-    {{$post->body}}
-</pre>
-@endforeach
+@section('content')
+
+    @foreach($posts as $post)
+    <div class="card post rtl bg-grey">
+        <div class="card-title">
+            <h2>{{$post->title}}</h2>
+        </div>
+        <div class="card-body">
+            {{$post->body}}
+        </div>
+        <a href="{{BASEURL.'/p/'.$post->slug}}" class="btn btn-primary mr-auto">بیشتر</a>
+    </div>
+    @endforeach
+
+@endsection
