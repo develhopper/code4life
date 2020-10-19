@@ -1,9 +1,9 @@
 
 # Code4life
 
-This is my personal CMS im currently using for my own website
+This is my personal CMS im currently using it on my own website
 
-and you can use it if you like :)
+and also you can use it if you like :)
 
   
 
