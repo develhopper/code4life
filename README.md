@@ -41,7 +41,7 @@ and you can use it if you like :)
 
   
 
-	these 2 above key used in Primal library see [Primal](https://github.com/develhopper/Qbuilder) documentation for more info
+	these 2 above key used in Primal library see [Primal](https://github.com/develhopper/Primal) documentation for more info
 
   
 
