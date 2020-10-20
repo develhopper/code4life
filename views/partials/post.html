@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post</title>
+    <title>{{$post->title}}</title>
     <link rel="stylesheet" href="/public/css/flat.css">
     <link rel="stylesheet" href="/public/css/app.css">
 </head>
@@ -25,6 +25,9 @@
     </div>
     
     @include('partials/footer.html')
+
+    <script src="/public/js/jquery.js"></script>
+    <script src="/public/js/app.js"></script>
 </body>
 
 </html>

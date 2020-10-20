@@ -303,3 +303,11 @@ table.stripe tr:nth-child(even){
 .align-start{
 	align-items: flex-start;
 }
+
+.comment{
+	margin:15px;
+}
+
+.clickable{
+	cursor: pointer;
+}

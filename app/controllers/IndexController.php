@@ -14,6 +14,7 @@ class IndexController extends BaseController{
     public function post($slug){
         $model=new Post();
         $post=$model->select()->where("slug",$slug)->get()[0];
-        $this->view("post.html",["post"=>$post]);
+        $comments=$post->comments();
+        $this->view("post.html",["post"=>$post,"comments"=>$comments]);
     }
 }
