@@ -22,6 +22,12 @@ class BaseController{
         $primal=Primal::getInstance(["views_dir"=>VIEWS_DIR,"cache_dir"=>CACHE_DIR]);
         $primal->view($name,$params);
     }
+
+    public function json(array $params,$responseCode){
+        header('Content-Type: application/json');
+        http_response_code($responseCode);
+        echo json_encode($params,JSON_PRETTY_PRINT);
+    }
     
     public function redirect($route){
         header("Location: $route");

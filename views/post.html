@@ -16,10 +16,11 @@
             <div class="card bg-white">
                 <div class="card-title bg-red clickable" id="comment-bar" data-toggle="#new-comment">برای نوشتن کامنت جدید بر روی این نوار کلیک کنید</div>
                 <div class="card-body" id="new-comment" hidden>
-                    <form action="#" method="post">
+                    <form action="/api/new/comment/{{$post->id}}" method="post" id="comment-form">
+                        {{csrf_field()}}
                         <input class="form-input" type="text" name="name" id="name" placeholder="نام">
                         <input class="form-input" type="email" name="email" id="" placeholder="ایمیل">
-                        <textarea class="form-input" name="comment" id="" cols="50" rows="10" placeholder="متن کامنت" style="resize: vertical;"></textarea>
+                        <textarea class="form-input" name="body" id="" cols="50" rows="10" placeholder="متن کامنت" style="resize: vertical;"></textarea>
                         <input class="btn btn-primary ml-auto" type="submit" value="ارسال">
                     </form>
                 </div>
