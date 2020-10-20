@@ -1,4 +1,8 @@
 <?php
+
+if(basename(__FILE__)=="setup.example.php")
+		die("You have to rename this script to run it");
+		
 include __DIR__.'/bootstrap.php';
 include __DIR__.'/vendor/autoload.php';
 use QB\QBuilder as Model;
