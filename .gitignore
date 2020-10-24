@@ -4,3 +4,5 @@ config.php
 setup.php
 public/js/jquery.js
 public/js/editor/*
+public/webfonts/*
+public/css/icons.css
