@@ -5,10 +5,14 @@ if(basename(__FILE__)=="setup.example.php")
 		
 include __DIR__.'/../bootstrap.php';
 include __DIR__.'/../vendor/autoload.php';
+
 use QB\QBuilder as Model;
 use app\models\User;
 use app\models\Post;
 use app\models\Comment;
+use Core\Kernel;
+
+$kernel=new Kernel();
 
 $model=new Model();
 $model->table="roles";
