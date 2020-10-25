@@ -80,6 +80,10 @@ body {
 	border-radius: 0;
 }
 
+.comment{
+	margin:10px;
+}
+
 .card-title * {
 	margin: 0;
 }
@@ -127,7 +131,7 @@ a {
 
 form {
 	display: flex;
-	flex-flow: column wrap;
+	flex-direction:column;
 	align-content: flex-start;
 	padding: 10px;
 }
@@ -306,6 +310,52 @@ table.stripe tr:nth-child(even){
 
 #nav-items{
 	width:100%;
+}
+
+.toast{
+	display: flex;
+	position:fixed;
+	bottom:0;
+	margin:15px;
+	width:90%;
+	background:#0288D1;
+	color:white;
+	z-index:999;
+	padding:15px;
+	border-radius:7px;
+	box-shadow:3px 3px 4px black;
+}
+
+.toast .message{
+	margin-right:auto;
+}
+.toast.rtl .message{
+	margin-right:0;
+	margin-left:auto;
+}
+
+.toast .close{
+	cursor: pointer;
+}
+
+.bg-danger{
+	background: #d32f2f !important;
+	color:white;
+}
+
+.bg-success{
+	background: #388E3C !important;
+	color:white;
+}
+
+.bg-primary {
+  background: #0288D1 !important;
+}
+
+#comment-form{
+	padding:0;
+	margin:0 auto;
+	max-width: 400px;
 }
 
 @media screen and (max-width:820px) {
