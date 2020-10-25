@@ -1,5 +1,5 @@
 $(function(){
-    $("#comment-bar").on("click",function(){
+    $("[data-toggle]").on("click",function(){
         $($(this).attr("data-toggle")).toggle('hide');
     });
     $("#comment-form").on("submit",function(e){
