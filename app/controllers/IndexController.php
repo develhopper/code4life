@@ -17,4 +17,10 @@ class IndexController extends BaseController{
         $comments=$post->comments();
         $this->view("post.html",["post"=>$post,"comments"=>$comments]);
     }
+
+    public function invalidateCache(){
+        echo "invalidating caches ... <br>";
+        file_put_contents(BASEDIR."/public/cache/cache.json","");
+        echo "done";
+    }
 }

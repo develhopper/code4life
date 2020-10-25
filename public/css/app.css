@@ -301,7 +301,11 @@ table.stripe tr:nth-child(even){
 }
 
 .navbar-brand{
-	margin:auto 0;
+	margin:auto 10px;
+}
+
+#nav-items{
+	width:100%;
 }
 
 @media screen and (max-width:820px) {

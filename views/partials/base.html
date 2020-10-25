@@ -7,19 +7,12 @@
     <title>خانه</title>
     <link rel="stylesheet" href="/public/css/flat.css">
     <link rel="stylesheet" href="/public/css/app.css">
-    <link rel="stylesheet" href="css/fontello.css">
+    <link rel="stylesheet" href="/public/css/fontello.css">
 </head>
 
 <body>
 
-    <nav class="navbar rtl bg-grey top-fixed" style="border-bottom: 1px solid red;">
-        <div class="nav">
-            <a class="nav-item">خانه</a>
-            <a class="nav-item">بلاگ</a>
-            <a class="nav-item">دسته بندی</a>
-            <a class="nav-item mr-auto" href="panel/index.html">ورود | ثبت نام</a>
-        </div>
-    </nav>
+    @include('partials/navbar.html')
 
     <div class="container-fluid main">
         <div class="row">
