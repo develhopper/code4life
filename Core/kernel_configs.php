@@ -3,7 +3,6 @@
 use Core\handler\Error;
 use Core\handler\Session;
 
-
 //register middlewares
 // $middlewares=[
 // 'admin'=>app\middleware\AdminAuth::class,

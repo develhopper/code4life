@@ -3,24 +3,20 @@ namespace app\providers;
 
 use Core\handler\Error;
 use Core\handler\Session;
-use Core\handler\Request;
 
 class CsrfProvider{
     
-    public static function boot(Request $request){
-        if ($_SERVER['REQUEST_METHOD']=='POST'){
-            
-            if(!$request->has('csrf')){
+    public static function boot(){
+        $current_route=Session::get("current_route");
+        if(in_array($current_route['method'],["PUT","PATCH","DELETE"])){
+            if(!isset($_REQUEST['csrf']))
                 Error::send(403);
-                exit;
-            }
-
-            if(Session::has('csrf') && Session::get('csrf')==$request->csrf){
+            if(Session::has('csrf')&&Session::get('csrf')==$_REQUEST['csrf']){
                 Error::send(403);
                 exit;
             }
             else{
-                Session::set('csrf',$request->csrf);
+                Session::set('csrf',$_REQUEST['csrf']);
             }
         }
     }
