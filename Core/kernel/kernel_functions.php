@@ -1,20 +1,6 @@
 <?php
-
 use Core\handler\Error;
 use Core\handler\Session;
-
-//register middlewares
-// $middlewares=[
-// 'admin'=>app\middleware\AdminAuth::class,
-// 'auth'=>app\middleware\Auth::class
-// ];
-
-if (DEBUG) {
-    ini_set('display_errors', 'on');
-    ini_set('log_errors', 'on');
-    ini_set('display_startup_errors', 'on');
-    ini_set('error_reporting', E_ALL);
-}
 
 function asset($name){
     return BASEURL."/public/".$name;
@@ -33,6 +19,10 @@ function error($msg,$code){
 function csrf_field(){
     $token=bin2hex(random_bytes(10));
     echo "<input name='csrf' value='$token' type='hidden'>";
+}
+
+function csrf_token(){
+    echo bin2hex(random_bytes(10));
 }
 
 function redirect($route){

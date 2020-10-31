@@ -8,6 +8,7 @@ use Core\exceptions\RouteException;
 
 class Kernel
 {
+    private $router;
     private $controller;
     private $method;
     private $params = [];
@@ -15,13 +16,15 @@ class Kernel
     private $response;
     public function __construct()
     {
-        include __DIR__."/kernel_configs.php";
+        include __DIR__."/kernel/kernel_functions.php";
+        include __DIR__."/kernel/kernel_configs.php";
+        $this->router=Router::getInstance();
     }
-
+    
     public function handle(Request $request){
         session_start();
         try{
-            $this->route = Route::find($request->url);
+            $this->route = $this->router->find($request->url);
             RegisterProvider::register();
         }catch(RouteException $e){
             Error::send($e->code);

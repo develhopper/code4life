@@ -16,5 +16,3 @@ spl_autoload_register(function ($name) {
 		exit;
 	}
 });
-require_once 'routes/web.php';
-require_once 'routes/api.php';
