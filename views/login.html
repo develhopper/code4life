@@ -1,0 +1,86 @@
+{% use Core\handler\Session; %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورود</title>
+    <link rel="stylesheet" href="/public/css/flat.css">
+    <link rel="stylesheet" href="/public/css/app.css">
+    <link rel="stylesheet" href="/public/css/fontello.css">
+</head>
+<body class="bg-grey">
+    
+    @include('partials/navbar.html')
+
+    <div class="container h100" style="margin-top: 85px;">
+
+        <ul class="tabs">
+            <li class="tab-item active"><a href="#login">ورود</a></li>
+            <li class="tab-item"><a href="#register">ثبت نام</a></li>
+        </ul>
+        
+        <div class="tab-contents">
+
+            <div class="row tab" class="tab-content" id="login">
+                <div class="col-1" style="align-items: center;">
+                    <div class="card rtl" style="width: 80%;">
+                        <div class="card-title bg-cyan">ورود</div>
+                        <div class="card-body">
+                            <form action="#" method="post" style="align-content: stretch;">
+                                <input type="text" name="username" class="form-input" placeholder="نام کاربری" required>
+                                <input type="password" name="password" class="form-input" placeholder="پسورد" required>
+                                <input class="btn btn-primary mh-auto" type="submit" value="ورود">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row tab" class="tab-content" id="register">
+                <div class="col-1" style="align-items: center;">
+                    <div class="card rtl" style="width: 80%;">
+                        <div class="card-title bg-red">ثبت نام</div>
+                        <div class="card-body">
+                            <form action="/register" method="post" style="align-content: stretch;">
+                                <div class="col-1">
+                                    <input type="text" name="username" id="username" class="form-input" placeholder="نام کاربری" data-message="#usercheck_msg" required>
+                                    <span id="usercheck_msg" class="message" style="color:black;display: none;"></span>
+                                </div>
+                                <input type="email" name="email" class="form-input" placeholder="ایمیل" required>
+                                <input type="password" name="password" class="form-input" placeholder="پسورد" required>
+                                <input id="register_button" class="btn btn-primary mh-auto" type="submit" value="ثبت نام">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+    @if(Session::has('login_msg'))
+        <div class="toast bg-red rtl" id="login_msg">
+            <span class="message">{{Session::flash('login_msg')}}</span>
+            <span class="close" data-toggle="#login_msg"><i class="icon-cancel"></i></span>
+        </div>
+    @endif
+
+    @if(Session::has('register_success'))
+        <div class="toast bg-success rtl" id="login_msg">
+            <span class="message">{{Session::flash('register_success')}}</span>
+            <span class="close" data-toggle="#login_msg"><i class="icon-cancel"></i></span>
+        </div>
+    @elseif(Session::has('register_danger'))
+    <div class="toast bg-danger rtl" id="login_msg">
+        <span class="message">{{Session::flash('register_danger')}}</span>
+        <span class="close" data-toggle="#login_msg"><i class="icon-cancel"></i></span>
+    </div>
+    @endif
+    
+    @include('partials/footer.html')
+    
+    <script src="/public/js/jquery.js"></script>
+    <script src="/public/js/app.js"></script>
+    <script>show_tab()</script>
+</body>
+</html>

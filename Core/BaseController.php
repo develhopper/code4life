@@ -3,6 +3,7 @@ namespace Core;
 
 use Core\handler\Error;
 use Primal\Primal;
+
 class BaseController{
     protected $method;
     public function __construct()
@@ -23,10 +24,11 @@ class BaseController{
         $primal->view($name,$params);
     }
 
-    public function json(array $params,$responseCode){
+    public function json(array $params,$responseCode=200){
         header('Content-Type: application/json');
         http_response_code($responseCode);
         echo json_encode($params,JSON_PRETTY_PRINT);
+        exit;
     }
     
     public function redirect($route){

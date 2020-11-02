@@ -1,3 +1,7 @@
+html,body{
+    width:100%;
+    height:100%;
+}
 @font-face {
 	font-family: 'Samim';
 	src: url('../webfonts/Samim.eot');
@@ -72,10 +76,6 @@ body {
 	margin: 10px;
 }
 
-.post>.card-body{
-	min-height: 320px;
-}
-
 .post>.btn {
 	border-radius: 0;
 }
@@ -86,10 +86,6 @@ body {
 
 .card-title * {
 	margin: 0;
-}
-
-.card-body {
-	margin-right: 10px;
 }
 
 .vnav {
@@ -131,7 +127,7 @@ a {
 
 form {
 	display: flex;
-	flex-direction:column;
+	flex-flow: column wrap;
 	align-content: flex-start;
 	padding: 10px;
 }
@@ -153,12 +149,17 @@ textarea,
 .form-input {
 	padding: 7px;
 	border-radius: 5px;
-	border: 3px solid black;
+	border: 1px solid black;
 	font-family: Samim, Arial, Helvetica, sans-serif;
 	margin-top: 15px;
 	margin-left: 5px;
 	margin-right: 5px;
 }
+
+input:disabled {
+	background: #dddddd;
+	color:#263238;
+  }
 
 .form-input:focus {
 	border-color: #0288D1;
@@ -305,11 +306,11 @@ table.stripe tr:nth-child(even){
 }
 
 .navbar-brand{
-	margin:auto 10px;
+	margin:auto 15px;
 }
 
-#nav-items{
-	width:100%;
+.nav-container{
+    width:100%;
 }
 
 .toast{
@@ -352,11 +353,45 @@ table.stripe tr:nth-child(even){
   background: #0288D1 !important;
 }
 
-#comment-form{
-	padding:0;
-	margin:0 auto;
-	max-width: 400px;
+.h100{
+    min-height:100%;
 }
+
+
+.tabs{
+	display:flex;
+	list-style-type:none;
+	padding:7px;
+	background:rgba(0,63,63,0.5);
+	border-radius:7px;
+	justify-content:center
+}
+
+.tabs .tab-item:first-child{
+    border-radius:5px 0 0 5px
+}
+
+.tabs .tab-item:last-child{
+    border-radius:0 5px 5px 0;
+}
+
+.tab-item{
+    background:#263238;
+    padding:5px;
+    width:150px;
+    text-align:center;
+    cursor:pointer;
+}
+
+.tab-item.active{
+	background:#212121;
+	color:white;
+}
+
+.tab-contents .tab{
+	display: none;
+}
+
 
 @media screen and (max-width:820px) {
 	.main {

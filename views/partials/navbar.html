@@ -1,14 +1,19 @@
+{% use Core\handler\Session; %}
 <nav class="navbar rtl bg-grey top-fixed" style="border-bottom: 1px solid red;" id="navbar">
     <div class="mv-auto" style="display: flex;">
         <button class="navbar-toggle" data-toggle="#nav-items"><i class="icon-menu"></i></button>
         <a href="#" class="navbar-brand">Code4Life</a>
     </div>
-    <div id="nav-items">
+    <div class="nav-container" id="nav-items">
         <div class="nav">
             <a class="nav-item">خانه</a>
             <a class="nav-item">بلاگ</a>
             <a class="nav-item">دسته بندی</a>
-            <a class="nav-item mr-auto" href="panel/index.html">ورود | ثبت نام</a>
+            @if(Session::has("login_id"))
+            <a class="nav-item mr-auto" href="/panel">{{Session::get("login_id")}}</a>
+            @else
+            <a class="nav-item mr-auto" href="/login">ورود | ثبت نام</a>
+            @endif
         </div>
     </div>
 </nav>
