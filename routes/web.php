@@ -6,5 +6,6 @@ Route::get("/","IndexController@index");
 Route::get("cache/invalidate","IndexController@invalidateCache");
 Route::get("p/{slug}","IndexController@post");
 Route::get("login","HomeController@login");
+Route::get("logout","HomeController@logout");
 Route::post("login","HomeController@login");
 Route::post("register","HomeController@register");

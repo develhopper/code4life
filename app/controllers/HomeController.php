@@ -24,6 +24,12 @@ class HomeController extends BaseController{
         $this->view("login.html");
     }
 
+    public function logout(){
+        Session::remove("login_id");
+        // Cookie::remove("login_id");
+        // Cookie::remove("remember_token");
+    }
+
     public function register(Request $request){
         $rules=[
             ["string"=>$request->username],

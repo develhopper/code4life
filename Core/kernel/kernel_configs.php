@@ -1,6 +1,9 @@
 <?php
 use Core\Router;
-
+/** Register Middlewares Here */
+$middlewares=[
+    "middlware_name"=>"middleware_class"
+];
 /** Register Routes Here */ 
 $router=Router::getInstance();
 $router->register(BASEDIR."/routes/web.php",["csrf"=>true]);

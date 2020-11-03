@@ -20,7 +20,7 @@ class Cookie
         return isset($_COOKIE[$key]);
     }
 
-    public function remove($key)
+    public static function remove($key)
     {
         setcookie($key,"",time()-1);
     }

@@ -21,7 +21,7 @@ class User extends Model{
                 if($request->has("remember")){
                     $auth=new Auth();
                     $auth->user_id=$this->id;
-                    $auth->remember_token=base64_encode(random_bytes(10));
+                    $auth->remember_token=bin2hex(random_bytes(10));
                     $auth->expired_at=date("Y-m-d H:i:s",time()+3600*24*30);
                     $auth->save();
                     Cookie::set("login_id",$this->username);
@@ -30,5 +30,9 @@ class User extends Model{
                 return true;
         }
         return false;
+    }
+
+    public function withLogin(){
+        return $this->left_join(\app\models\Auth::class);
     }
 }

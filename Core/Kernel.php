@@ -14,6 +14,7 @@ class Kernel
     private $params = [];
     private $route;
     private $response;
+    private $request;
     public function __construct()
     {
         include __DIR__."/kernel/kernel_functions.php";
@@ -26,6 +27,7 @@ class Kernel
         try{
             $this->route = $this->router->find($request->url);
             RegisterProvider::register();
+            $this->request=$request;
         }catch(RouteException $e){
             Error::send($e->code);
         }
@@ -46,7 +48,7 @@ class Kernel
         $middles=$this->route['middleware'];
         if(is_string($middles)){
             $middleware=$GLOBALS['middlewares'][$middles];
-            $middleware::next();    
+            $middleware::next($this->$request);    
         }else if(is_array($middles)){
             foreach($middles as $m){
                 $middleware = $GLOBALS['middlewares'][$m];

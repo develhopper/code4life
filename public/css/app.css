@@ -427,3 +427,7 @@ table.stripe tr:nth-child(even){
 		display:block;
 	}
 }
+
+.black{
+	color:black;
+}

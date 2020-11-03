@@ -24,11 +24,11 @@ class Session{
         $_SESSION['flash'][$key]=$message;
     }
 
-    public function remove($key){
+    public static function remove($key){
         unset($_SESSION[$key]);
     }
 
-    public function flush(){
+    public static function flush(){
         session_unset();
         session_destroy();
     }

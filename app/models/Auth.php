@@ -5,8 +5,5 @@ use Core\Model;
 
 class Auth extends Model{
     protected $table="user_logins";
-
-    public function login(){
-        
-    }
+    protected $related_tables=["users"=>"user_id"];
 } 
