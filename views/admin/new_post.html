@@ -1,0 +1,79 @@
+@extends('admin/partials/base.html')
+
+@section('content')
+<form action="#" method="post" style="align-content:initial;">
+    <div class="row reverse">
+        <div class="col-2-3">
+            <div class="card" style="height: 720px;">
+                <div class="card-title bg-grey rtl">نوشته جدید</div>
+                <div class="card-body" style="display: flex; flex-direction: column;">
+
+                    <input class="rtl" type="text" name="titile" id="" placeholder="موضوع">
+                    <div class="row rtl" style="margin: 10px 0;">
+                        <label for="image" class="btn btn-success"><i class="fi-photo"></i> تصویر شاخص
+                        </label>
+                        <input type="file" name="image" id="image" style="display: none;">
+                    </div>
+                    <textarea class="ltr" name="content" id="editor" cols="30" rows="10" placeholder="متن"></textarea>
+
+                    <textarea class="rtl" name="description" id="" cols="30" rows="2"
+                        placeholder="توضیحات مختصر"></textarea>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-1-3">
+            <div class="card rtl" style="margin-right: 10px;">
+                <div class="card-title bg-grey">تنظیمات پست</div>
+                <div class="card-body" style="max-width: 500px; overflow-y: scroll;">
+                    <input type="submit" value="انتشار" class="btn btn-primary ml-auto" style="margin-bottom: 10px;">
+                    <div class="card">
+                        <div class="card-title bg-grey">دسته بندی</div>
+                        <div class="card-body" style="height: 200px; overflow-y: scroll;">
+                            <div class="catbar">
+                                <div class="cat">
+                                    <input type="checkbox" name="" id="">
+                                    <label>برنامه نویسی</label>
+                                </div>
+                                <div class="subcat">
+                                    <input type="checkbox" name="" id="">
+                                    <label>پایتون</label>
+                                </div>
+                                <div class="subcat">
+                                    <input type="checkbox" name="" id="">
+                                    <label>php</label>
+                                </div>
+                                <div class="subcat">
+                                    <input type="checkbox" name="" id="">
+                                    <label>سی شارپ</label>
+                                </div>
+                                <div class="cat">
+                                    <input type="checkbox" name="" id="">
+                                    <label>سیستم عامل</label>
+                                </div>
+                                <div class="subcat">
+                                    <input type="checkbox" name="" id="">
+                                    <label>لینوکس</label>
+                                </div>
+                                <div class="subcat">
+                                    <input type="checkbox" name="" id="">
+                                    <label>ویندوز</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="margin-top:10px;">
+                        <div class="card-title bg-grey">برچسب ها</div>
+                        <div class="card-body">
+                            <div class="lables"></div>
+                            <input type="text" id="" placeholder="برچسب" style="width: 80%;">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@endsection

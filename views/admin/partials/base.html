@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{$title}}</title>
+    <link rel="stylesheet" href="/public/css/flat.css">
+    <link rel="stylesheet" href="/public/css/app.css">
+    <link rel="stylesheet" href="/public/css/admin.css">
+    <link rel="stylesheet" href="/public/css/fontello.css">
+</head>
+
+<body>
+
+    <button id="navbar_toggle" class="bg-blue" data-toggle="#vertical_nav"><i class="icon-menu"></i></button>
+    <div class="dock" id="vertical_nav">
+        <div class="vnav bg-grey">
+            <a href="/admin" class="nav-item active" title="صفحه اصلی"><i class="icon-home"></i></a>
+            <div class="nav-item dropdown left" title="نوشته ها">
+                <span class="icon-pencil"></span>
+                <div class="dropdown-content bg-blue-grey">
+                    <a class="dropdown-item" href="/admin/new/post">نوشته جدید</a>
+                    <a class="dropdown-item" href="/admin/recent/posts">نوشته های اخیر</a>
+                    <a class="dropdown-item" href="/admin/recent/comments">نظرات اخیر</a>
+                </div>
+            </div>
+            <a class="nav-item" href="/admin/files" title="مدیریت فایل"><i class="icon-folder"></i></a>
+            <div class="nav-item dropdown left" title="تنظیمات سایت">
+                <span class="icon-cog"></span>
+                <div class="dropdown-content bg-blue-grey">
+                    <a class="dropdown-item" href="/admin/user_management">مدیریت کاربران</a>
+                    <a class="dropdown-item" href="/admin/page_settings">تنظیمات صفحات</a>
+                    <a class="dropdown-item" href="/admin/menu_settings">تنظیمات منو ها</a>
+                    <a class="dropdown-item" href="/admin/category_settings">تنظیمات دسته بندی ها</a>
+                </div>
+            </div>
+            <a href="/logout" class="nav-item mt-auto" title="خروج"><i class="icon-off"></i></a>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-1">
+                @yield('content')
+            </div>
+        </div>
+    </div>
+
+    <script src="/public/js/jquery.js"></script>
+    <script src="/public/js/app.js"></script>
+    <script src="/public/js/admin.js"></script>
+</body>
+
+</html>

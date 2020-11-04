@@ -1,0 +1,25 @@
+#navbar_toggle{
+    display: none;
+    position: fixed;
+    right: 0;
+    z-index: 1000;
+}
+.container-fluid{
+    margin-right: 80px;
+}
+#vertical_nav{
+    display: block;
+}
+@media screen and (max-width:480px){
+    #navbar_toggle{
+        display: block !important;
+    }
+	#vertical_nav{
+        display: none;
+        border-left:1px solid #b71c1c;
+        box-shadow:-1px -1px 7px #b71c1c;    
+    }
+    .container-fluid{
+        margin-right:0 !important;
+    }
+}

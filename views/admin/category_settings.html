@@ -1,0 +1,83 @@
+@extends('admin/partials/base.html')
+
+@section('content')
+<div class="row">
+    <div class="col-1">
+        <div class="card rtl post">
+            <div class="card-title bg-cyan">افزودن دسته بندی</div>
+            <div class="card-body">
+                <form action="#" method="post">
+                        <input class="form-input" type="text" name="title" id="" placeholder="نام دسته بندی" required>
+                        
+                        <label>
+                            <input type="text" class="form-input" name="" id="" list="list" placeholder="دسته بندی پدر" required>
+                            <datalist id="list">
+                                <select name="list">
+                                    <option value="0" selected>هیچکدام</option>
+                                    <option value="1">برنامه نویسی</option>
+                                    <option value="2">سیستم عامل</option>
+                                </select>
+                            </datalist>
+                        </label>
+
+                        <input type="submit" value="افزودن" class="btn btn-primary ml-auto">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-1">
+        <div class="card rtl post">
+            <div class="card-title bg-cyan">لیست دسته بندی ها</div>
+            <div class="card-body">
+                <form action="#" method="post">
+                    <div style="height: 300px;overflow: scroll; width: 100%;">
+                        <table class="table stripe">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>نام</th>
+                                    <th>دسته بندی پدر</th>
+                                    <th>تعداد مطالب</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td><input type="checkbox" name="comment[]" id=""></td>
+                                    <td>برنامه نویسی</td>
+                                    <td>-</td>
+                                    <td><a href="#">مشاهده مطالب دسته بندی</a></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="comment[]" id=""></td>
+                                    <td>جاوا</td>
+                                    <td>برنامه نویسی</td>
+                                    <td><a href="#">مشاهده مطالب دسته بندی</a></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="comment[]" id=""></td>
+                                    <td>پایتون</td>
+                                    <td>برنامه نویسی</td>
+                                    <td><a href="#">مشاهده مطالب دسته بندی</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-1" style="margin-top: 10px;">
+                        <label for="action" style="padding:5px;">عملیات :</label>
+                        <select name="action" id="action" style="width: 300px; padding:5px">
+                            <option value="none" selected>انتخاب کنید</option>
+                            <option value="delete">حذف</option>
+                            <option value="archive">ویرایش</option>
+                        </select>
+                        <input type="submit" value="اعمال" class="btn btn-primary ml-auto">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

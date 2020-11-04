@@ -9,7 +9,7 @@ use Core\handler\Cookie;
 
 class User extends Model{
     protected $table="users";
-
+    protected $related_tables=["user_logins"=>"id"];
     public function login(Request $request){
         $rules=[
             ["string"=>$request->username],
@@ -17,14 +17,15 @@ class User extends Model{
         ];
         
         if(Validator::validate($rules) && password_verify($request->password,$this->password)){
-            Session::set("login_id",$this->username);
+            Session::set("login_user",$this->username);
                 if($request->has("remember")){
                     $auth=new Auth();
                     $auth->user_id=$this->id;
                     $auth->remember_token=bin2hex(random_bytes(10));
                     $auth->expired_at=date("Y-m-d H:i:s",time()+3600*24*30);
-                    $auth->save();
-                    Cookie::set("login_id",$this->username);
+                    $login_id=$auth->save();
+                    Cookie::set("login_id",$login_id);
+                    Cookie::set("login_user",$this->username);
                     Cookie::set("remember_token",$auth->remember_token);
                 }
                 return true;

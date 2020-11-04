@@ -94,6 +94,7 @@ body {
 	list-style-type: none;
 	padding: 0;
 	margin: 0;
+	height: 100%;
 }
 
 .top-fixed {
@@ -191,6 +192,10 @@ input:disabled {
 
 .dock {
 	z-index: 100;
+	position: fixed;
+	height: 100%;
+	width: 80px;
+	right:0;
 }
 
 .dock .nav-item {
@@ -413,7 +418,7 @@ table.stripe tr:nth-child(even){
 	}
 }
 
-@media screen and (max-width:450px){
+@media screen and (max-width:480px){
 	#nav-items{
 		display: none;
 	}
@@ -425,6 +430,9 @@ table.stripe tr:nth-child(even){
 	}
 	.navbar-toggle{
 		display:block;
+	}
+	#vertical_nav{
+		display: none;
 	}
 }
 

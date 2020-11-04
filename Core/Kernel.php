@@ -15,11 +15,13 @@ class Kernel
     private $route;
     private $response;
     private $request;
+    private $middlewares;
     public function __construct()
     {
         include __DIR__."/kernel/kernel_functions.php";
         include __DIR__."/kernel/kernel_configs.php";
         $this->router=Router::getInstance();
+        $this->middlewares=$middlewares;
     }
     
     public function handle(Request $request){
@@ -47,12 +49,12 @@ class Kernel
     private function Routemiddleware(){
         $middles=$this->route['middleware'];
         if(is_string($middles)){
-            $middleware=$GLOBALS['middlewares'][$middles];
+            $middleware=$this->middlewares[$middles];
             $middleware::next($this->$request);    
         }else if(is_array($middles)){
             foreach($middles as $m){
-                $middleware = $GLOBALS['middlewares'][$m];
-                $middleware::next();
+                $middleware = $this->middlewares[$m];
+                $middleware::next($this->request);
             }
         }
     }

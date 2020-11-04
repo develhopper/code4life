@@ -32,10 +32,13 @@ $(function(){
         $(this).addClass("active");
         show_tab();
     });
-    after_input("#username",function(inp){
+    after_input("[data-check]",function(input,el){
+        $element=$(el);
+        var entity=$(el).attr("data-check");
         var data;
         data=new FormData();
-        data.append('username',inp);
+        data.append('type',entity);
+        data.append('data',input);
         $.ajax({
             url:"/api/check_username",
             type:"POST",
@@ -43,18 +46,17 @@ $(function(){
             processData:false,
             contentType:false,
             success:function(data){
-                $username=$("#username");
                 $reg_button=$("#register_button");
                 if(data.code!=200){
-                    $username.css("border-color","red");
-                    $($username.attr("data-message")).css({"color":"red","display":"block"});
+                    $element.css("border-color","red");
+                    $($element.attr("data-message")).css({"color":"red","display":"block"});
                     $reg_button.prop("disabled",true);
                 }else{
-                    $username.css("border-color","green");
-                    $($username.attr("data-message")).css({"color":"green","display":"block"});
+                    $element.css("border-color","green");
+                    $($element.attr("data-message")).css({"color":"green","display":"block"});
                     $reg_button.prop("disabled",false);
                 }
-                $($username.attr("data-message")).text(data.message);
+                $($element.attr("data-message")).text(data.message);
             }
         });
     });
@@ -89,8 +91,9 @@ function after_input(id,func){
     $(id).keyup(id,function(){
         clearInterval(timer);
         var value=$(this).val();
+        var element=this;
         timer=setTimeout(function(){
-            func(value);
+            func(value,element);
         },timeout);
     });
 }

@@ -2,7 +2,8 @@
 use Core\Router;
 /** Register Middlewares Here */
 $middlewares=[
-    "middlware_name"=>"middleware_class"
+    "admin"=>app\middlewares\Admin::class,
+    "auth"=>app\middlewares\Auth::class
 ];
 /** Register Routes Here */ 
 $router=Router::getInstance();

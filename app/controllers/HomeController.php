@@ -25,9 +25,14 @@ class HomeController extends BaseController{
     }
 
     public function logout(){
-        Session::remove("login_id");
-        // Cookie::remove("login_id");
-        // Cookie::remove("remember_token");
+        if(Cookie::has("login_id")){
+            $auth=new Auth();
+            $auth->delete("id",Cookie::get("login_id"))->execute();
+        }
+        Session::remove("login_user");
+        Cookie::remove("login_id");
+        Cookie::remove("remember_token");
+        redirect("/");
     }
 
     public function register(Request $request){

@@ -1,0 +1,25 @@
+@extends('admin/partials/base.html')
+
+@section('content')
+<div class="card rtl post">
+    <div class="card-title bg-cyan">تنظیمات صفحه اصلی</div>
+    <div class="card-body">
+        <form action="#" method="post">
+            <div class="row rtl">
+                <label for="image" class="btn btn-success"><i class="fi-photo"></i> تصویر شاخص
+                </label>
+                <input type="file" name="image" id="image" style="display: none;">
+            </div>
+            <input class="form-input" type="text" name="title" id=""
+            placeholder="سربرگ (title)">
+            <textarea class="form-input" name="description" id="" cols="30" rows="10"
+            placeholder="توضیحات"></textarea>
+            <div class="row" style="align-items: center;">
+                <label style="margin:5px">تعداد پست ها در هر صفحه :</label>
+                <input class="form-input" type="number" name="post-count" id="" value="10">
+            </div>
+            <input type="submit" value="ذخیره" class="btn btn-primary ml-auto">
+        </form>
+    </div>
+</div>
+@endsection

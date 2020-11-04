@@ -9,12 +9,12 @@ use app\models\Auth;
 class RememberProvider{
     
     public static function boot(){
-        if(!Session::has('login_id') && Cookie::has("login_id") && Cookie::has("remember_token")){
-            $username=Cookie::get("login_id");
+        if(!Session::has('login_user') && Cookie::has("login_id") && Cookie::has("remember_token")){
+            $login_id=Cookie::get("login_id");
             $remember_token=Cookie::get("remember_token");
 
             $user=new User();
-            $user=$user->withLogin()->where("username",$username)->and("remember_token",$remember_token)->first();
+            $user=$user->withLogin()->where("user_logins.id",$login_id)->and("remember_token",$remember_token)->first();
             if($user){
                 $expired_at=new \DateTime($user->expired_at);
                 $now=new \DateTime();
@@ -24,7 +24,7 @@ class RememberProvider{
                     $auth=new Auth();
                     $auth->delete("remember_token",$remember_token)->execute();
                 }else
-                    Session::set("login_id",$username);
+                    Session::set("login_user",$user->username);
             }
         }
     }

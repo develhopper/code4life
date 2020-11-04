@@ -1,0 +1,61 @@
+@extends('admin/partials/base.html')
+
+@section('content')
+<div class="card post rtl">
+    <div class="card-title bg-cyan">لیست کاربران</div>
+    <div class="card-body">
+        <form action="#" method="post">
+            <div style="height: 300px;overflow: scroll; width: 100%;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>نام</th>
+                            <th>ایمیل</th>
+                            <th>مطلب</th>
+                            <th>خلاصه کامنت</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox" name="comment[]" id=""></td>
+                            <td>alireza</td>
+                            <td>example@example.com</td>
+                            <td>مقدمه زبان جاوا</td>
+                            <td>با سلام ودرود ...</td>
+                            <td><a href="#">مشاهده کامنت</a></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" name="comment[]" id=""></td>
+                            <td>alireza</td>
+                            <td>example@example.com</td>
+                            <td>مقدمه زبان جاوا</td>
+                            <td>با سلام ودرود ...</td>
+                            <td><a href="#">مشاهده کامنت</a></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" name="comment[]" id=""></td>
+                            <td>alireza</td>
+                            <td>example@example.com</td>
+                            <td>مقدمه زبان جاوا</td>
+                            <td>با سلام ودرود ...</td>
+                            <td><a href="#">مشاهده کامنت</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-1" style="margin-top: 10px;">
+                <label for="action" style="padding:5px;">عملیات :</label>
+                <select name="action" id="action" style="width: 300px; padding:5px">
+                    <option value="none" selected>انتخاب کنید</option>
+                    <option value="delete">تایید کردن</option>
+                    <option value="archive">رد کردن</option>
+                </select>
+                <input type="submit" value="اعمال" class="btn btn-primary ml-auto">
+            </div>
+        </form>
+    </div>
+</div>
+@endsection

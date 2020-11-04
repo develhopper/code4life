@@ -4,7 +4,7 @@ namespace app\controllers;
 use Core\BaseController;
 use Core\handler\Request;
 use app\models\Comment;
-use app\models\User;
+use Core\Model;
 
 class ApiController extends BaseController{
 
@@ -22,13 +22,15 @@ class ApiController extends BaseController{
     }
 
     public function check_username(Request $request){
-        if(!$request->has("username"))
+        if(!$request->has("type") || !$request->has("data"))
             $this->json(["message"=>"error: missing parameters(username)","code"=>400]);        
-        $user=new User();
-        $user=$user->select()->where("username",$request->username)->first();
-        if($user){
-            $this->json(["message"=>"username is taken","code"=>400]);
+        $type=explode(":",$request->type);
+        $model=new Model();
+        $model->table=$type[0];
+        $model=$model->select()->where("$type[1]",$request->data)->first();
+        if($model){
+            $this->json(["message"=>"this $type[1] is taken","code"=>400]);
         }else
-            $this->json(["message"=>"username is available","code"=>200]);
+            $this->json(["message"=>"this $type[1] is available","code"=>200]);
     }
 }

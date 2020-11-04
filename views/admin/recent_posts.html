@@ -1,0 +1,57 @@
+@extends('admin/partials/base.html')
+
+@section('content')
+<div class="card post rtl">
+    <div class="card-title bg-cyan">لیست نوشته ها</div>
+    <div class="card-body">
+        <form action="#" method="post">
+            <div style="height: 300px;overflow: scroll; width: 100%;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>موضوع</th>
+                            <th>بازدید</th>
+                            <th>تعداد نظرات</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox" name="post[]" id=""></td>
+                            <td>مقدمه زبان جاوا</td>
+                            <td>50</td>
+                            <td>5</td>
+                            <td><a href="#">ویرایش</a></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" name="post[]" id=""></td>
+                            <td>مقدمه زبان جاوا</td>
+                            <td>50</td>
+                            <td>5</td>
+                            <td><a href="#">ویرایش</a></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" name="post[]" id=""></td>
+                            <td>مقدمه زبان جاوا</td>
+                            <td>50</td>
+                            <td>5</td>
+                            <td><a href="#">ویرایش</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-1" style="margin-top: 10px;">
+                <label for="action" style="padding:5px;">عملیات :</label>
+                <select name="action" id="action" style="width: 300px; padding:5px">
+                    <option value="none" selected>انتخاب کنید</option>
+                    <option value="delete">حذف</option>
+                    <option value="archive">آرشیو</option>
+                </select>
+                <input type="submit" value="اعمال" class="btn btn-primary ml-auto">
+            </div>
+        </form>
+    </div>
+</div>
+@endsection

@@ -9,8 +9,8 @@
             <a class="nav-item">خانه</a>
             <a class="nav-item">بلاگ</a>
             <a class="nav-item">دسته بندی</a>
-            @if(Session::has("login_id"))
-            <a class="nav-item mr-auto" href="/panel">{{Session::get("login_id")}}</a>
+            @if(Session::has("login_user"))
+            <a class="nav-item mr-auto" href="/panel">{{Session::get("login_user")}}</a>
             @else
             <a class="nav-item mr-auto" href="/login">ورود | ثبت نام</a>
             @endif

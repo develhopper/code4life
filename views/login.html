@@ -48,10 +48,13 @@
                         <div class="card-body">
                             <form action="/register" method="post" style="align-content: stretch;">
                                 <div class="col-1">
-                                    <input type="text" name="username" id="username" class="form-input" placeholder="نام کاربری" data-message="#usercheck_msg" required>
+                                    <input type="text" name="username" id="username" class="form-input" placeholder="نام کاربری" data-message="#usercheck_msg" data-check="users:username" required>
                                     <span id="usercheck_msg" class="message" style="color:black;display: none;"></span>
                                 </div>
-                                <input type="email" name="email" class="form-input" placeholder="ایمیل" required>
+                                <div class="col-1">
+                                    <input type="email" name="email" id="email" class="form-input" placeholder="ایمیل" data-message="#mailcheck" data-check="users:email" required>
+                                    <span id="mailcheck" class="message" style="color:black;display: none;"></span>
+                                </div>
                                 <input type="password" name="password" class="form-input" placeholder="پسورد" required>
                                 <input id="register_button" class="btn btn-primary mh-auto" type="submit" value="ثبت نام">
                             </form>
