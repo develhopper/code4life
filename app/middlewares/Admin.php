@@ -8,7 +8,7 @@ class Admin{
 
     public static function next(Request $request){
         if(!Session::has("user_role") || !Session::has("login_user"))
-            Error::send(403);
+            redirect("/login");
     }
 
 }
