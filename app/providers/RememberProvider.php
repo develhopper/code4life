@@ -23,8 +23,11 @@ class RememberProvider{
                     Cookie::remove("remember_token");
                     $auth=new Auth();
                     $auth->delete("remember_token",$remember_token)->execute();
-                }else
+                }else{
                     Session::set("login_user",$user->username);
+                    Session::set("user_id",$user->user_id);
+                    Session::set("user_role",$user->role);
+                }
             }
         }
     }

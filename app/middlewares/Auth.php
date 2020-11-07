@@ -18,6 +18,7 @@ class Auth{
                 if(!$user)
                     redirect("/login");
                 Session::set("user_role",$user->role);
+                Session::set("user_id",$user->id);
             }
         }
     }
