@@ -10,7 +10,13 @@
             <a class="nav-item">بلاگ</a>
             <a class="nav-item">دسته بندی</a>
             @if(Session::has("login_user"))
-            <a class="nav-item mr-auto" href="/panel">{{Session::get("login_user")}}</a>
+            <span class="nav-item mr-auto" data-toggle="#dropdown-menu">{{Session::get("login_user")}}</span>
+                <div class="dropdown-items bg-grey bottom left" id="dropdown-menu" style="display: none;">
+                    @if(Session::has('user_role') && Session::get('user_role')==2)
+                    <a href="/admin" class="dropdown-item">پنل</a>
+                    @endif
+                    <a href="/logout" class="dropdown-item bg-red white">خروج</a>
+                </div>
             @else
             <a class="nav-item mr-auto" href="/login">ورود | ثبت نام</a>
             @endif

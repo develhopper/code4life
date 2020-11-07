@@ -25,7 +25,7 @@ class Request{
     }
 
     public function isMethod($method){
-        return $method==$_SERVER['REQUEST_METHOD']?true:false;
+        return $method==$_SESSION['current_route']['method']?true:false;
     }
 
     public function upload($field){

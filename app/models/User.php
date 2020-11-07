@@ -18,6 +18,8 @@ class User extends Model{
         
         if(Validator::validate($rules) && password_verify($request->password,$this->password)){
             Session::set("login_user",$this->username);
+            Session::set("user_role",$this->role);
+            Session::set("user_id",$this->id);
                 if($request->has("remember")){
                     $auth=new Auth();
                     $auth->user_id=$this->id;
@@ -35,5 +37,9 @@ class User extends Model{
 
     public function withLogin(){
         return $this->left_join(\app\models\Auth::class);
+    }
+    
+    public function withNotes(){
+        return $this->left_join(\app\models\Note::class);
     }
 }

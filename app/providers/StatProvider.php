@@ -7,6 +7,8 @@ use app\models\Stat;
 class StatProvider{
     
     public static function boot(){
+        if(isset(Session::get("current_route")["no_stat"]))
+            return;
         $uri=$_REQUEST["url"];
         if(empty($uri))
             $uri="/";

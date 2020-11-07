@@ -14,6 +14,12 @@ use app\models\Auth;
 class HomeController extends BaseController{
     
     public function login(Request $request){
+        if(Session::has("login_user") && Session::has("user_role")){
+            if(Session::get("user_role")==2)
+                redirect("/admin");
+            else
+                redirect("/");
+        }                
         if($request->isMethod("POST")){
             $user=new User();
             $user=$user->select()->where("username",$request->username)->first();

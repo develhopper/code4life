@@ -1,0 +1,35 @@
+@extends('admin/partials/base.html')
+
+@section('content')
+<div class="row">
+    <div class="col-1">
+        <div class="card post rtl">
+            <div class="card-title bg-amber">یادداشت جدید</div>
+            <div class="card-body">
+                <form action="" method="post">
+                    <input type="hidden" name="_method" value="PUT">
+                    {{csrf_field()}}
+                    <textarea name="note" id="" cols="30" rows="10" placeholder="متن یادداشت" maxlength="255" required></textarea>
+                    <input type="submit" value="ثبت" class="btn btn-primary mh-auto">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    @foreach($notes as $note)
+    <div class="note">
+        <div class="note-bar">
+            <span class="mr-auto">{{$note->created_at}}</span>
+            <div class="dropdown">
+                <span class="clickable">options</span>
+                <div class="dropdown-content bg-grey">
+                    <a href="/admin/note/delete/{{$note->id}}" class="dropdown-item">delete</a>
+                </div>
+            </div>
+        </div>
+        <span class="body">{{$note->body}}</span>
+    </div>
+    @endforeach
+</div>
+@endsection

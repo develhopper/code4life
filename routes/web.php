@@ -19,3 +19,6 @@ Route::get("admin/recent/comments","AdminController@recent_comments",$admin);
 Route::get("admin/user_management","AdminController@user_management",$admin);
 Route::get("admin/page_settings","AdminController@page_settings",$admin);
 Route::get("admin/category_settings","AdminController@category_settings",$admin);
+
+Route::get("admin/notes","AdminController@notes",$admin);
+Route::put("admin/notes","AdminController@notes",$admin);

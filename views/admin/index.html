@@ -7,10 +7,9 @@
         <div class="card post rtl bg-grey full-h">
             <div class="card-title">کامنت های اخیر</div>
             <div class="card-body" style="max-height: 100px; overflow-y: scroll;">
-                <p>متن کامنت</p>
-                <p>متن کامنت</p>
-                <p>متن کامنت</p>
-                <p>متن کامنت</p>
+                @foreach($comments as $comment)
+                <p><a href="#">{{substr($comment->body,0,50)}}...</a></p>
+                @endforeach
             </div>
             <a href="/admin/recent/comments" class="btn btn-primary mr-auto">بیشتر</a>
         </div>
@@ -21,12 +20,11 @@
         <div class="card post rtl bg-amber full-h">
             <div class="card-title">یادداشت ها</div>
             <div class="card-body" style="max-height: 100px; overflow-y: scroll;">
-                <p><a href="#">متن یادداشت</a></p>
-                <p><a href="#">متن یادداشت</a></p>
-                <p><a href="#">متن یادداشت</a></p>
-                <p><a href="#">متن یادداشت</a></p>
+                @foreach($notes as $note)
+                <p><a href="/admin/notes">{{substr($note->body,0,100)}}...</a></p>
+                @endforeach
             </div>
-            <a href="#" class="btn"><span class="icon-pencil"></span> یادداشت جدید</a>
+            <a href="/admin/notes" class="btn"><span class="icon-pencil"></span> یادداشت جدید</a>
         </div>
     </div>
 </div>
@@ -35,10 +33,9 @@
         <div class="card post rtl bg-teal full-h">
             <div class="card-title">آمار</div>
             <div class="card-body" style="max-height: 100px; overflow-y: scroll;">
-                <p><a href="#">متن یادداشت</a></p>
-                <p><a href="#">متن یادداشت</a></p>
-                <p><a href="#">متن یادداشت</a></p>
-                <p><a href="#">متن یادداشت</a></p>
+                @foreach($stats as $stat)
+                <p><a href="#">{{$stat->uri}} ... {{$stat->views}}</a></p>
+                @endforeach
             </div>
             <a href="/admin/statistics" class="btn"><span class="icon-chart-bar"></span> بیشتر</a>
         </div>

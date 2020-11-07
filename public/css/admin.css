@@ -10,6 +10,9 @@
 #vertical_nav{
     display: block;
 }
+.dropdown-content{
+    min-width: 200px;
+}
 @media screen and (max-width:480px){
     #navbar_toggle{
         display: block !important;

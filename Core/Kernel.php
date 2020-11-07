@@ -28,13 +28,12 @@ class Kernel
         session_start();
         try{
             $this->route = $this->router->find($request->url);
-            RegisterProvider::register();
             $this->request=$request;
+            $this->Routemiddleware();
+            RegisterProvider::register();
         }catch(RouteException $e){
             Error::send($e->code);
         }
-
-        $this->Routemiddleware();
         
         $this->setController();
         array_push($this->params,$request);
