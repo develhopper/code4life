@@ -11,7 +11,7 @@
                 <p><a href="#">{{substr($comment->body,0,50)}}...</a></p>
                 @endforeach
             </div>
-            <a href="/admin/recent/comments" class="btn btn-primary mr-auto">بیشتر</a>
+            <a href="/admin/recent/comments" class="btn btn-primary mr-auto mt-auto">بیشتر</a>
         </div>
 
     </div>
@@ -24,7 +24,7 @@
                 <p><a href="/admin/notes">{{substr($note->body,0,100)}}...</a></p>
                 @endforeach
             </div>
-            <a href="/admin/notes" class="btn"><span class="icon-pencil"></span> یادداشت جدید</a>
+            <a href="/admin/notes" class="btn mt-auto"><span class="icon-pencil"></span> یادداشت جدید</a>
         </div>
     </div>
 </div>
@@ -37,7 +37,7 @@
                 <p><a href="#">{{$stat->uri}} ... {{$stat->views}}</a></p>
                 @endforeach
             </div>
-            <a href="/admin/statistics" class="btn"><span class="icon-chart-bar"></span> بیشتر</a>
+            <a href="/admin/statistics" class="btn mt-auto"><span class="icon-chart-bar"></span> بیشتر</a>
         </div>
     </div>
 </div>
