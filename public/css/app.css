@@ -76,12 +76,22 @@ form.bg-dark .form-input{
 }
 
 .cat {
-	font-weight: bold;
+	list-style-type: none;
 	margin-top: 10px;
+	padding-inline-start: 0;
+}
+
+.cat a{
+	color:#039be5;
+}
+
+.cat a:hover{
+	color:white;
 }
 
 .subcat {
-	margin-right: 15px;
+	list-style-type: none;
+	padding-inline-start: 15px;
 }
 
 .red-hover:hover{

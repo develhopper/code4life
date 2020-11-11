@@ -6,19 +6,41 @@
         <div class="card rtl post">
             <div class="card-title bg-cyan">افزودن دسته بندی</div>
             <div class="card-body">
-                <form action="#" method="post">
+                <form action="" method="POST">
+                        <input type="hidden" name="_method" value="PUT">
+                        {{csrf_field()}}
                         <input class="form-input" type="text" name="title" id="" placeholder="نام دسته بندی" required>
                         
-                        <label>
-                            <input type="text" class="form-input" name="" id="" list="list" placeholder="دسته بندی پدر" required>
-                            <datalist id="list">
-                                <select name="list">
-                                    <option value="0" selected>هیچکدام</option>
-                                    <option value="1">برنامه نویسی</option>
-                                    <option value="2">سیستم عامل</option>
-                                </select>
-                            </datalist>
-                        </label>
+                        <div class="card" style="margin-top:15px;width: 400px;">
+                            <div class="card-title bg-grey">انتخاب دسته بندی پدر</div>
+                            <div class="card-body" style="height:250px;overflow: auto;">
+                                <table class="table stripe" id="parent_category">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>نام</th>
+                                            <th>دسته بندی پدر</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr>
+                                            <td><input value="" type="radio" name="parent[]"></td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                        </tr>
+                                        @foreach($categories as $category)
+                                        <tr>
+                                            <td><input value="{{$category->id}}" type="radio" name="parent[]"></td>
+                                            <td>{{$category->cat_name}}</td>
+                                            <td>{{($category->parent_name)}}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <input id="parent_search" type="text" class="form-input" placeholder="جستوجو" data-table="#parent_category">
+                        </div>
 
                         <input type="submit" value="افزودن" class="btn btn-primary ml-auto">
                 </form>
@@ -31,7 +53,9 @@
         <div class="card rtl post">
             <div class="card-title bg-cyan">لیست دسته بندی ها</div>
             <div class="card-body">
-                <form action="#" method="post">
+                <form action="#" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    {{csrf_field()}}
                     <div style="height: 300px;overflow: scroll; width: 100%;">
                         <table class="table stripe">
                             <thead>
@@ -45,24 +69,15 @@
                             </thead>
 
                             <tbody>
+                                @foreach($categories as $category)
                                 <tr>
-                                    <td><input type="checkbox" name="comment[]" id=""></td>
-                                    <td>برنامه نویسی</td>
-                                    <td>-</td>
+                                    <td><input value="{{$category->id}}" type="radio" name="parent[]"></td>
+                                    <td>{{$category->cat_name}}</td>
+                                    <td>{{($category->parent_name)}}</td>
+                                    <td>0</td>
                                     <td><a href="#">مشاهده مطالب دسته بندی</a></td>
                                 </tr>
-                                <tr>
-                                    <td><input type="checkbox" name="comment[]" id=""></td>
-                                    <td>جاوا</td>
-                                    <td>برنامه نویسی</td>
-                                    <td><a href="#">مشاهده مطالب دسته بندی</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" name="comment[]" id=""></td>
-                                    <td>پایتون</td>
-                                    <td>برنامه نویسی</td>
-                                    <td><a href="#">مشاهده مطالب دسته بندی</a></td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -71,7 +86,6 @@
                         <select name="action" id="action" style="width: 300px; padding:5px">
                             <option value="none" selected>انتخاب کنید</option>
                             <option value="delete">حذف</option>
-                            <option value="archive">ویرایش</option>
                         </select>
                         <input type="submit" value="اعمال" class="btn btn-primary ml-auto">
                     </div>

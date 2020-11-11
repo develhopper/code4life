@@ -4,10 +4,13 @@ namespace app\controllers;
 use Core\BaseController;
 use Core\handler\Request;
 use Core\handler\Session;
+use Core\handler\Validator;
 use app\models\User;
 use app\models\Note;
 use app\models\Stat;
 use app\models\Comment;
+use app\models\Category;
+use app\misc\Generator;
 
 class AdminController extends BaseController{
 
@@ -22,7 +25,13 @@ class AdminController extends BaseController{
     }
 
     public function new_post(){
-        $this->view("admin/new_post.html",["title"=>"مطلب جدید"]);
+        $model=new Category();
+        $model->alias="c1";
+        $select="c1.id,c1.name as cat_name,c1.parent_id as parent_id,c2.name parent_name,c2.parent_id as parent_parent";
+        $categories=$model->select($select)->withParent()->get();
+        $catList=$model->toTree($categories);
+        
+        $this->view("admin/new_post.html",["title"=>"مطلب جدید","categories"=>Generator::category_checkboxes($catList)]);
     }
 
     public function recent_posts(){
@@ -41,8 +50,21 @@ class AdminController extends BaseController{
         $this->view("admin/page_settings.html",["title"=>"تنظیمات صفحات"]);
     }
 
-    public function category_settings(){
-        $this->view("admin/category_settings.html",["title"=>"تنظیمات دسته بندی ها"]);
+    public function category_settings(Request $request){
+        if($request->isMethod("PUT")){
+            $category=new Category();
+            $category->name=$request->title;
+            $category->slug=slug($request->title);
+            if($request->parent)
+                $category->parent_id=$request->parent[0];
+            $category->save();
+        }
+        $categories=new Category();
+        $categories->alias="c1";
+        $select="c1.id,c1.name as cat_name,c1.parent_id as cat_parent,c2.name parent_name,c2.parent_id as parent_parent";
+        $categories=$categories->select($select)->withParent()->get();
+
+        $this->view("admin/category_settings.html",["title"=>"تنظیمات دسته بندی ها","categories"=>$categories]);
     }
 
     public function notes(Request $request){

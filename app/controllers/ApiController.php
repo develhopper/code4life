@@ -4,6 +4,7 @@ namespace app\controllers;
 use Core\BaseController;
 use Core\handler\Request;
 use app\models\Comment;
+use app\models\Category;
 use Core\Model;
 
 class ApiController extends BaseController{
@@ -32,5 +33,16 @@ class ApiController extends BaseController{
             $this->json(["message"=>"this $type[1] is taken","code"=>400]);
         }else
             $this->json(["message"=>"this $type[1] is available","code"=>200]);
+    }
+
+    public function category(Request $request){
+        if(!$request->search)
+            return $this->json(["message"=>"missing parameters {search}"],400);
+        
+        $categories=new Category();
+        $categories->alias="c1";
+        $select="c1.id,c1.name as cat_name,c1.parent_id as cat_parent,c2.name parent_name,c2.parent_id as parent_parent";
+        $categories=$categories->select($select)->withParent()->where("c1.name","like","%$request->search%")->execute();
+        $this->json($categories->fetchAll(\PDO::FETCH_ASSOC));
     }
 }
