@@ -88,7 +88,9 @@ function after_input(id,func){
     var timer;
     var timeout=500;
     var func=func;
-    $(id).keyup(id,function(){
+    $(id).keyup(id,function(e){
+        if(e.keyCode==13)
+            e.preventDefault();
         clearInterval(timer);
         var value=$(this).val();
         var element=this;

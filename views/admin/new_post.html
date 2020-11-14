@@ -1,23 +1,39 @@
 @extends('admin/partials/base.html')
 
 @section('content')
-<form action="#" method="post" style="align-content:initial;">
+<form action="#" method="POST" style="align-content:initial;" enctype="multipart/form-data">
+    <input type="hidden" name="_method" value="PUT">
+    {{csrf_field()}}
     <div class="row reverse">
         <div class="col-2-3">
             <div class="card" style="height: 720px;">
                 <div class="card-title bg-grey rtl">نوشته جدید</div>
                 <div class="card-body" style="display: flex; flex-direction: column;">
 
-                    <input class="rtl" type="text" name="titile" id="" placeholder="موضوع">
-                    <div class="row rtl" style="margin: 10px 0;">
-                        <label for="image" class="btn btn-success"><i class="fi-photo"></i> تصویر شاخص
-                        </label>
-                        <input type="file" name="image" id="image" style="display: none;">
+                    <div class="col">
+                        <input class="rtl" type="text" name="title" placeholder="موضوع" maxlength="60" required>
+                        <span class="counter">0/60</span>
                     </div>
-                    <textarea class="ltr" name="content" id="editor" cols="30" rows="10" placeholder="متن"></textarea>
 
-                    <textarea class="rtl" name="description" id="" cols="30" rows="2"
-                        placeholder="توضیحات مختصر"></textarea>
+                    <div class="row rtl" style="margin: 10px 0;">
+                        <div class="dropdown">
+                            <label for="thumb" class="btn"><i class="icon-picture"></i>
+                                <span>تصویر شاخص</span>
+                            </label>
+                            <input type="file" name="thumbnail" id="thumb" style="display: none;" accept="image/*">
+                            <div class="dropdown-content">
+                                <span class="thumbnail-reset"><i class="icon-trash"></i></span>
+                                <img id="preview" src="/public/images/noimage.jpg" alt="thumbnail" class="thumbnail">
+                            </div>
+                        </div>
+                    </div>
+                    <textarea class="ltr" name="body" id="editor" cols="30" rows="10" placeholder="متن" required></textarea>
+
+                    <div class="col">
+                        <textarea class="rtl" name="description" cols="30" rows="2"
+                        placeholder="توضیحات مختصر" maxlength="150" required></textarea>
+                        <span class="counter">0/150</span>
+                    </div>
 
                 </div>
             </div>
@@ -36,11 +52,14 @@
                             </ul>
                         </div>
                     </div>
+
                     <div class="card" style="margin-top:10px;">
                         <div class="card-title bg-grey">برچسب ها</div>
                         <div class="card-body">
-                            <div class="lables"></div>
-                            <input type="text" id="" placeholder="برچسب" style="width: 80%;">
+                            <input type="text" id="tagger" placeholder="برچسب" style="width: 80%;" data-action="#tag-list">
+                            <div class="tags" id="tag-list">
+                               
+                            </div>
                         </div>
                     </div>
 

@@ -15,7 +15,10 @@ Route::post("login","HomeController@login");
 Route::post("register","HomeController@register");
 
 Route::get("admin","AdminController@admin",$admin);
+
 Route::get("admin/new/post","AdminController@new_post",$admin);
+Route::put("admin/new/post","AdminController@submit_post",$admin);
+
 Route::get("admin/recent/posts","AdminController@recent_posts",$admin);
 Route::get("admin/recent/comments","AdminController@recent_comments",$admin);
 Route::get("admin/user_management","AdminController@user_management",$admin);

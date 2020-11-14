@@ -5,12 +5,21 @@ use Core\Model;
 use app\misc\Node;
 class Category extends Model{
     protected $table="categories";
-    protected $related_tables=["categories"=>"parent_id"];
+    protected $related_tables=["categories"=>"parent_id","posts_categories"=>"category_id"];
 
     public function withParent(){
         if(isset($this->alias)){
-            $options=["aliases"=>["c1","c2"],"reverse_cond"=>true];
+            $options=["aliases"=>[$this->alias,"c2"],"reverse_cond"=>true];
             return $this->left_join(\app\models\Category::class,$options);
+        }
+    }
+
+    public function withCount(){
+        if(isset($this->alias)){
+            $options=["aliases"=>[$this->alias,""]];
+            $this->left_join(\app\models\PostCategory::class,$options);
+            $this->query.=" group by $this->alias.name";
+            return $this;
         }
     }
 

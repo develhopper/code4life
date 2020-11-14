@@ -13,6 +13,49 @@
 .dropdown-content{
     min-width: 200px;
 }
+
+.tags{
+	display:flex;
+	flex-wrap:wrap;
+}
+.tag{
+    display:flex;
+    flex-wrap:wrap;
+    align-items: center;
+    background:#1976d2;
+    color: white;
+	margin:5px;
+	padding:5px;
+    border-radius:10px;
+    min-width:100px;
+    border-bottom: 2px solid black;
+}
+
+.tag .close{
+    background: white;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    display: flex;
+    justify-content:center;
+}
+
+.tag .title{
+    margin:0 5px;
+}
+
+.thumbnail{
+    width: 300px;
+    height: 300px;
+}
+.thumbnail-reset{
+    position: absolute;
+    top:0;
+    left:0;
+    font-size: 1.5em;
+}
+
 @media screen and (max-width:480px){
     #navbar_toggle{
         display: block !important;

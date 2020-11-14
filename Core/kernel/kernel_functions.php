@@ -10,6 +10,10 @@ function _e($in){
     return htmlspecialchars($in);
 }
 
+function _d($in){
+    return htmlspecialchars_decode($in);
+}
+
 function error($msg,$code){
     header($_SERVER["SERVER_PROTOCOL"]." $code");
     echo $msg;

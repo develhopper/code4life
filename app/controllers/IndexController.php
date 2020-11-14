@@ -15,10 +15,12 @@ class IndexController extends BaseController{
         
         $model=new Category();
         $model->alias="c1";
-        $select="c1.id,c1.name as cat_name,c1.slug as cat_slug,c2.slug as parent_slug,c1.parent_id as parent_id,c2.name parent_name,c2.parent_id as parent_parent";
-        $categories=$model->select($select)->withParent()->get();
+        $select="c1.id,c1.name as cat_name,
+        c1.slug as cat_slug,c2.slug as parent_slug,
+        c1.parent_id as parent_id,c2.name parent_name,
+        c2.parent_id as parent_parent,count(posts_categories.id) as count ";
+        $categories=$model->select($select)->withParent()->withCount()->sort("c1.id")->get();
         $catList=$model->toTree($categories);
-
         $this->view("index.html",["posts"=>$posts,"categories"=>Generator::category_nav($catList)]);
     }
 
@@ -26,7 +28,17 @@ class IndexController extends BaseController{
         $model=new Post();
         $post=$model->select()->where("slug",$slug)->get()[0];
         $comments=$post->comments();
-        $this->view("post.html",["post"=>$post,"comments"=>$comments]);
+        
+        $model=new Category();
+        $model->alias="c1";
+        $select="c1.id,c1.name as cat_name,
+        c1.slug as cat_slug,c2.slug as parent_slug,
+        c1.parent_id as parent_id,c2.name parent_name,
+        c2.parent_id as parent_parent,count(posts_categories.id) as count ";
+        $categories=$model->select($select)->withParent()->withCount()->sort("c1.id")->get();
+        $catList=$model->toTree($categories);
+        
+        $this->view("post.html",["post"=>$post,"comments"=>$comments,"categories"=>Generator::category_nav($catList)]);
     }
 
     public function invalidateCache(){

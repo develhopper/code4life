@@ -147,6 +147,18 @@ th,td{
 	text-align: center;
 }
 
+.color-success {
+	color: #388E3C;
+}
+  
+.color-danger {
+	color: #b71c1c;
+}
+  
+.color-primary {
+	color: #0288D1;
+}
+
 @media screen and (max-width:820px) {
 	.main {
 		flex-direction: column;

@@ -3,7 +3,7 @@
 const DEBUG=true;
 const BASEURL="< your website url >";
 const BASEDIR = __DIR__;
-const UPLOAD_DIR=BASEDIR."/public/upload";
+const UPLOAD_DIR=BASEDIR."/storage";
 
 const DB_DRIVER="mysql";
 const DB_HOST="localhost";

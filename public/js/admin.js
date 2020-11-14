@@ -5,32 +5,53 @@ $(function () {
                 onImageUpload:function(files,editor,welEditable){
                     upload(files[0],this);
                 }
-            }
-        
+            } 
         });
     }catch(e){}
+
     after_input("#parent_search",function(input,el){
         $table=$($(el).attr("data-table")).find("tbody");
         $table.find("tr").filter(function(){
             $(this).toggle($(this).text().indexOf(input)>-1);
         });
     });
+    $("#tagger").keydown(function(e){
+        if(e.keyCode===13){
+            e.preventDefault();
+            var list=$(this).attr("data-action");
+            var tag=$("<div></div>").addClass("tag").append($("<span></span>").addClass("title").text($(this).val()))
+            .append($("<span></span>").addClass("close mr-auto").append($("<i></i>").addClass("icon-cancel")))
+            $(list).append($(tag).append($("<input type='hidden'>").attr("name","tags[]").attr("value",$(this).val())));
+            $(this).val("");
+        }
+    });
+
+    $(".tags").on("click",".close",function(){
+        $($(this).parent()).remove();
+    });
+
+    $("#thumb").change(function(){
+        console.log("changed");
+        if(this.files && this.files[0]){
+            var reader = new FileReader();
+            reader.onload=function(e){
+                $("#preview").attr("src",e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+
+    $("[maxLength]").keyup(function(){
+        $(this).siblings(".counter").text($(this).val().length+"/"+$(this).attr("maxLength"));
+    });
+
+    $(".thumbnail-reset").click(function(){
+        $("#thumb").val(null);
+        $("#preview").attr("src","../images/noimage.jpg");
+    });
+
 });
-// $.ajax({
-//     type:"GET",
-//     url:"http://code4life.com/api/category",
-//     data:{search:input},
-//     success:function(data){
-//         if(data){
-//             console.log(data);
-//             $table=$($(el).attr("data-table")).find("tbody");
-//             $table.empty();
-//             data.forEach(element => {
-//                 $table.append(makeRow(element));
-//             });
-//         }
-//     }
-// });
+
 
 function makeRow(data){
     $row=$("<tr></tr>");

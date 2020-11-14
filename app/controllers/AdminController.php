@@ -6,11 +6,14 @@ use Core\handler\Request;
 use Core\handler\Session;
 use Core\handler\Validator;
 use app\models\User;
+use app\models\Post;
+use app\models\Tag;
 use app\models\Note;
 use app\models\Stat;
 use app\models\Comment;
 use app\models\Category;
 use app\misc\Generator;
+use app\misc\Storage;
 
 class AdminController extends BaseController{
 
@@ -32,6 +35,58 @@ class AdminController extends BaseController{
         $catList=$model->toTree($categories);
         
         $this->view("admin/new_post.html",["title"=>"مطلب جدید","categories"=>Generator::category_checkboxes($catList)]);
+    }
+
+    public function submit_post(Request $request){
+        $rules=[
+            ["string"=>$request->title],
+            ["string"=>$request->body],
+            ["string"=>$request->description]
+        ];
+        if(!Validator::validate($rules)){
+            $params=["title"=>"خطا","message"=>"متاسفانه خطایی رخ داده است :(","color"=>"danger","link"=>"/admin"];
+            return $this->view("message.html",$params);
+        }
+        $post_tags=[];
+        $thumbnail="''";
+        $description=($request->description)?$request->description:"''";
+        if($request->tags){
+            $tag=new Tag();
+            if($tag->save($request->tags)!=-1){
+                $post_tags=$tag->select()->in("name",$request->tags)->asArray();
+            }
+        }
+
+        if(isset($_FILES["thumbnail"])){
+            $storage=new Storage();
+            $thumbnail=$storage->upload("/thumbnails",$_FILES["thumbnail"]);
+        }
+        
+        $post=new Post();
+        $post->title=_e($request->title);
+        $post->slug=slug($request->title);
+        $post->uri="p/".slug($request->title);
+        $post->body=_e($request->body);
+        $post->description=_e($description);
+        $post->thumbnail=$thumbnail;
+        $post->author_id=Session::get("user_id");
+        $post->id=$post->save();
+        
+        if($request->tags){
+            $post->addTags($post_tags);
+        }
+        
+        if($request->categories){
+            $post->addCategories($request->categories);
+        }
+        $params=[];
+        if($post->id>0){
+            $params=["title"=>"انجام شد","message"=>"پست جدید با موفقیت ایجاد شد","color"=>"success","link"=>"/admin"];
+        }else{
+            $params=["title"=>"خطا","message"=>"متاسفانه خطایی رخ داده است :(","color"=>"danger","link"=>"/admin"];
+        }
+
+        $this->view("message.html",$params);
     }
 
     public function recent_posts(){

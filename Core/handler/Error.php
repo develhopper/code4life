@@ -2,6 +2,7 @@
 
 namespace Core\handler;
 
+use Core\BaseController;
 class Error{
     private static $errors=[
         400=>"400 Bad Request",
@@ -13,7 +14,8 @@ class Error{
 
     public static function send($code){
         http_response_code($code);
-        echo self::$errors[$code];
+        $controller=new BaseController();
+        $controller->view("message.html",["title"=>self::$errors[$code],"message"=>self::$errors[$code],"color"=>"danger","link"=>"/"]);
         exit;
     }
 }

@@ -7,7 +7,7 @@ class Generator{
     public static function category_checkboxes(Node $node){
         $html="";
 		if($node->self){
-			$html.="<input type='checkbox' value='{$node->self->id}'/><label>{$node->self->cat_name}</label>";
+			$html.="<input name='categories[]' type='checkbox' value='{$node->self->id}'/><label>{$node->self->cat_name}</label>";
 		if($node->hasChild()){
 			$html.="<ul class='subcat'>";
 		}
@@ -34,7 +34,8 @@ class Generator{
                 $html.="|_";
             else
                 $html.="#";
-            $html.=" <a href='$href'>{$node->self->cat_name}</a>";
+			$html.=" <a href='$href'>{$node->self->cat_name}</a> ";
+			$html.="<span>({$node->self->count})</span>";
             
 		if($node->hasChild()){
 			$html.="<ul class='subcat'>";
