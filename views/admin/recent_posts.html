@@ -4,7 +4,7 @@
 <div class="card post rtl">
     <div class="card-title bg-cyan">لیست نوشته ها</div>
     <div class="card-body">
-        <form action="#" method="post">
+        <form action="#" method="POST">
             <div style="height: 300px;overflow: scroll; width: 100%;">
                 <table class="table">
                     <thead>
@@ -18,27 +18,15 @@
                     </thead>
 
                     <tbody>
+                        @foreach($posts as $post)
                         <tr>
-                            <td><input type="checkbox" name="post[]" id=""></td>
-                            <td>مقدمه زبان جاوا</td>
-                            <td>50</td>
-                            <td>5</td>
-                            <td><a href="#">ویرایش</a></td>
+                            <td><input type="checkbox" name="posts[]" value="{{$post->id}}"></td>
+                            <td>{{$post->title}}</td>
+                            <td>{{$post->views}}</td>
+                            <td>{{$post->comments}}</td>
+                            <td><a href="/admin/edit/post/{{$post->id}}">ویرایش</a></td>
                         </tr>
-                        <tr>
-                            <td><input type="checkbox" name="post[]" id=""></td>
-                            <td>مقدمه زبان جاوا</td>
-                            <td>50</td>
-                            <td>5</td>
-                            <td><a href="#">ویرایش</a></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" name="post[]" id=""></td>
-                            <td>مقدمه زبان جاوا</td>
-                            <td>50</td>
-                            <td>5</td>
-                            <td><a href="#">ویرایش</a></td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

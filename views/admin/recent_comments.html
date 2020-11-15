@@ -19,30 +19,16 @@
                     </thead>
 
                     <tbody>
+                        @foreach($comments as $comment)
                         <tr>
-                            <td><input type="checkbox" name="comment[]" id=""></td>
-                            <td>alireza</td>
-                            <td>example@example.com</td>
-                            <td>مقدمه زبان جاوا</td>
-                            <td>با سلام ودرود ...</td>
+                            <td><input type="checkbox" name="comments[]" value="{{$comment->id}}"></td>
+                            <td>{{$comment->name}}</td>
+                            <td>{{$comment->email}}</td>
+                            <td><a href="/pid/{{$comment->post_id}}" target="_blank">{{$comment->post_id}}</a></td>
+                            <td>{{substr($comment->body,0,100)}}</td>
                             <td><a href="#">مشاهده کامنت</a></td>
                         </tr>
-                        <tr>
-                            <td><input type="checkbox" name="comment[]" id=""></td>
-                            <td>alireza</td>
-                            <td>example@example.com</td>
-                            <td>مقدمه زبان جاوا</td>
-                            <td>با سلام ودرود ...</td>
-                            <td><a href="#">مشاهده کامنت</a></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" name="comment[]" id=""></td>
-                            <td>alireza</td>
-                            <td>example@example.com</td>
-                            <td>مقدمه زبان جاوا</td>
-                            <td>با سلام ودرود ...</td>
-                            <td><a href="#">مشاهده کامنت</a></td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

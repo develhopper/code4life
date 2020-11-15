@@ -38,7 +38,7 @@ class Route
         return self::add($route, $controller, "POST",$middleware);
     }
 
-    public function put($route, $controller, $middleware=null){
+    public static function put($route, $controller, $middleware=null){
         return self::add($route, $controller, "PUT",$middleware);
     }
 

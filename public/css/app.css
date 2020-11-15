@@ -159,6 +159,11 @@ th,td{
 	color: #0288D1;
 }
 
+.post .card-body img{
+    max-width:100%;
+    height:auto;
+}
+
 @media screen and (max-width:820px) {
 	.main {
 		flex-direction: column;

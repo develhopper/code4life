@@ -88,17 +88,32 @@ class AdminController extends BaseController{
 
         $this->view("message.html",$params);
     }
+    
+    public function upload_image(Request $request){
+        if($_FILES['file']){
+            $storage=new Storage();
+            echo BASEURL.'/storage/'.$storage->upload("/posts",$_FILES['file']);
+        }
+    }
 
     public function recent_posts(){
-        $this->view("admin/recent_posts.html",["title"=>"مطالب اخیر"]);
+        $select="posts.id,posts.title,posts.uri,statistics.views,count(comments.id) as comments ";
+        $post=new Post();
+        $posts=$post->select($select)->withStat()->get();
+        $this->view("admin/recent_posts.html",["title"=>"مطالب اخیر","posts"=>$posts]);
     }
 
     public function recent_comments(){
-        $this->view("admin/recent_comments.html",["title"=>"نظرات اخیر"]);
+        $comment=new Comment();
+        $comments=$comment->select()->get();
+        $this->view("admin/recent_comments.html",["title"=>"نظرات اخیر","comments"=>$comments]);
     }
 
     public function user_management(){
-        $this->view("admin/user_management.html",["title"=>"مدیریت کاربران"]);
+        $user=new User();
+        $select="users.id,users.username,users.email,users.verified,roles.name as role";
+        $users=$user->select($select)->withRoles()->get();
+        $this->view("admin/user_management.html",["title"=>"مدیریت کاربران","users"=>$users]);
     }
 
     public function page_settings(){

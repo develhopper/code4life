@@ -42,4 +42,8 @@ class User extends Model{
     public function withNotes(){
         return $this->left_join(\app\models\Note::class);
     }
+
+    public function withRoles(){
+        return $this->join(\app\models\Role::class,"",["on"=>"users.role=roles.id"]);
+    }
 }

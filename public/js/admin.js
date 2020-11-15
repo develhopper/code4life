@@ -70,12 +70,13 @@ function upload(file,editor){
 
     $.ajax({
         data:data,
-        url:"http://localhost:8000/upload.php",
+        url:"/admin/new/post/upload",
         type:"POST",
         cache:false,
         processData:false,
         contentType:false,
         success:function(url){
+            console.log(url);
             $(editor).summernote("editor.insertImage",url);
         }
     });

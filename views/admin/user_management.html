@@ -13,32 +13,22 @@
                             <th>نام کاربری</th>
                             <th>ایمیل</th>
                             <th>نقش</th>
+                            <th>تایید شده</th>
                             <th></th>
                         </tr>
                     </thead>
 
                     <tbody>
+                        @foreach($users as $user)
                         <tr>
-                            <td><input type="checkbox" name="member[]" id=""></td>
-                            <td>alireza</td>
-                            <td>example@example.com</td>
-                            <td>admin</td>
+                            <td><input type="checkbox" name="users[]" value="{{$user->id}}"></td>
+                            <td>{{$user->id}}</td>
+                            <td>{{$user->email}}</td>
+                            <td>{{$user->role}}</td>
+                            <td>{{$user->verified}}</td>
                             <td><a href="#">سایر مشخصات</a></td>
                         </tr>
-                        <tr>
-                            <td><input type="checkbox" name="member[]" id=""></td>
-                            <td>alireza</td>
-                            <td>example@example.com</td>
-                            <td>admin</td>
-                            <td><a href="#">سایر مشخصات</a></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" name="member[]" id=""></td>
-                            <td>alireza</td>
-                            <td>example@example.com</td>
-                            <td>admin</td>
-                            <td><a href="#">سایر مشخصات</a></td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

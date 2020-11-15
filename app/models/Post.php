@@ -36,4 +36,11 @@ class Post extends Model{
             $model->execute();
         }
     }
+
+    public function withStat(){
+        $this->left_join(\app\models\Stat::class,["on"=>"posts.uri=statistics.uri"])
+        ->left_join(\app\models\Comment::class);
+        $this->query.=" group by posts.id";
+        return $this;
+    }
 }
