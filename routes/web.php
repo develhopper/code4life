@@ -31,3 +31,5 @@ Route::delete("admin/category_settings","AdminController@category_settings",$adm
 
 Route::get("admin/notes","AdminController@notes",$admin);
 Route::put("admin/notes","AdminController@notes",$admin);
+
+Route::get("admin/files","AdminController@files",$admin);

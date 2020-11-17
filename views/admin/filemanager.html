@@ -1,0 +1,28 @@
+@extends('admin/partials/base.html')
+
+@section('content')
+<table class="table filemanager">
+    <caption></caption>
+    <thead>
+        <tr>
+            <td>#</td>
+            <td>icon</td>
+            <td>File Name</td>
+            <td>Size</td>
+        </tr>
+    </thead>
+
+    <tbody>
+        
+    </tbody>
+</table>
+<div class="viewer-container"></div>
+@endsection
+
+@section('css')
+    <link rel="stylesheet" href="/public/css/filemanger.css">
+@endsection
+
+@section('js')
+    <script src="/public/js/filemanager.js"></script>
+@endsection

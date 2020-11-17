@@ -27,6 +27,10 @@ class AdminController extends BaseController{
         $this->view("admin/index.html",["title"=>"مدیریت","notes"=>$notes,"comments"=>$comments,"stats"=>$stats]);
     }
 
+    public function files(){
+        $this->view("admin/filemanager.html",["title"=>"مدیریت فایل"]);
+    }
+
     public function new_post(){
         $model=new Category();
         $model->alias="c1";
