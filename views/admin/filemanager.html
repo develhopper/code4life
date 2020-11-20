@@ -1,6 +1,10 @@
 @extends('admin/partials/base.html')
 
 @section('content')
+<div class="row">
+    <label class="btn btn-primary" for="new_file">Upload File <i class="icon-upload"></i></label>
+    <input class="uploader" type="file" name="new_file" id="new_file" style="display: none;">
+</div>
 <table class="table filemanager">
     <caption></caption>
     <thead>

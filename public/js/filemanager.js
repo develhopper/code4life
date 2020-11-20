@@ -39,8 +39,11 @@ $(function(){
     });
     $(".viewer-container").on("click",".viewer-close",function(){
         $(this).closest(".dialog").remove();
-        $(".viewer-container").css("z-index",-1);
-        $(".filemanager").css("filter","none");
+        bringDown();
+    });
+    $(".uploader").on("change",function(){
+        if($(this).prop("files").length>0 && confirm("Are you Sure to upload selected file?"))
+            uploader($(this).prop("files")[0]);            
     });
 });
 
@@ -53,6 +56,41 @@ types={
     "text":{icon:"icon-doc-text",callback:editor}
 };
 
+function uploader(input){
+    if(input){
+        var dialog=Dialog("Uploading... ","Please Wait");
+        
+        call("/api/file/upload","POST",{"file":input,"path":current_dir},function(data){
+            dialog.dissmis();
+                getListing(refresh,current_dir);
+                alert(data.message);
+        });
+    }
+}
+
+function Dialog(title,body){
+    var dialog=$("<div class='dialog'></div>");
+    $(dialog).append($("<div class='viewer-title'></div>").append($("<span></span>").text(title)));
+    $(dialog).append($("<div class='body'></div>").text(body).append("<i class='icon-arrows-cw animate-spin'><i/>"));
+    $(".viewer-container").append(dialog);
+    bringUp();
+    return {
+        dissmis:function(){
+            $(dialog).remove();
+            bringDown();
+        }
+    };
+}
+
+function bringUp(){
+    $(".viewer-container").css("z-index",1);
+    $(".filemanager").css("filter","blur(4px)");
+}
+
+function bringDown(){
+    $(".viewer-container").css("z-index",-1);
+    $(".filemanager").css("filter","none");
+}
 
 /** make context menu popup */
 function makeMenu(context,items,position){
@@ -161,8 +199,8 @@ function imageViewer(context){
             var img=new Image();
             img.src=data.url;
             $(viewer).append($("<div></div>").addClass("body").append(img));
-            $(".viewer-container").append(viewer).css("z-index",1);
-            $(".filemanager").css("filter","blur(4px)");
+            $(".viewer-container").append(viewer);
+            bringUp();
     });
 }
 
@@ -186,8 +224,8 @@ function editor(context){
 
             $(viewer).append(title).append(body).append(buttons);
 
-            $(".viewer-container").append(viewer).css("z-index",1);
-            $(".filemanager").css("filter","blur(4px)");
+            $(".viewer-container").append(viewer);
+            bringUp();
         });
 }
 
@@ -268,9 +306,9 @@ function call(route,type,data,callback=null,error=null){
         $.ajax({
             type:type,
             url:url,
+            data:getFormData(data),
             processData:false,
             contentType:false,
-            data:getFormData(data),
             success:callback,
             error:error
         });

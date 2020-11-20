@@ -17,3 +17,5 @@ Route::post("file/cut","FileController@mv",$admin);
 Route::post("file/remove","FileController@remove",$admin);
 Route::post("file/get_content","FileController@get_content",$admin);
 Route::post("file/put_content","FileController@put_content",$admin);
+
+Route::post("file/upload","FileController@upload",$admin);

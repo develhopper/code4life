@@ -7,42 +7,9 @@ use app\misc\Storage;
 class FileController extends BaseController{
     
     public function listing(Request $request){
-        $types=[
-            "code"=>["html","php","css","js"],
-            "picture"=>["png","jpg","jpeg"],
-            "video"=>["mp4"],
-            "music"=>["mp3"],
-            "text"=>["txt"],
-            "archive"=>["zip"]];
-        $path=realpath(($request->path!="null")?$request->path:BASEDIR);
-        $list=scandir($path);
-        $output=[
-            "current_directory"=>$path,
-            "dir"=>[],
-            "file"=>[]
-        ];
-        foreach($list as $item){
-            $type="file";
-            $size="";
-            $file_type="";
-            if(is_dir($path."/".$item)){
-                $type="dir";
-            }else{
-                $size=Storage::FileSizeConvert(filesize($path."/".$item));
-                $ext=pathinfo($path."/".$item,PATHINFO_EXTENSION);
-                foreach($types as $key=>$ft){
-                        if(in_array($ext,$ft)){
-                            $file_type=$key;
-                            break;
-                        }
-                }
-                if(empty($file_type))
-                    $file_type="doc";
-            }
-            array_push($output[$type],["name"=>$item,"size"=>$size,"path"=>"$path/$item","file_type"=>$file_type]);
-        }
-        array_push($output);
-        $this->json($output);
+        $path=realpath(($request->path!="null")?$request->path:UPLOAD_DIR);
+        $storage=new Storage();
+        $this->json($storage->listing($path));
     }
 
     public function get_url(Request $request){
@@ -113,4 +80,15 @@ class FileController extends BaseController{
             $this->json(["message"=>"$request->path saved"]);
         }
     }
+
+    public function upload(Request $request){
+        $files=$request->files();
+        if($request->path && $files->has('file')){
+            $path=$request->path."/".$files->file['name'];
+            if(move_uploaded_file($files->file['tmp_name'],$path))
+                $this->json(["message"=>"uploaded"]);
+        }else
+            $this->json(["message"=>"missing path or file"]);
+    }
+
 }

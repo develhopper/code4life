@@ -20,6 +20,43 @@ class Storage{
             return $file_name;
     }
 
+    public function listing($path){
+        $types=[
+            "code"=>["html","php","css","js"],
+            "picture"=>["png","jpg","jpeg"],
+            "video"=>["mp4"],
+            "music"=>["mp3"],
+            "text"=>["txt"],
+            "archive"=>["zip"]];
+            $list=scandir($path);
+        $output=[
+            "current_directory"=>$path,
+            "dir"=>[],
+            "file"=>[]
+        ];
+        foreach($list as $item){
+            $type="file";
+            $size="";
+            $file_type="";
+            if(is_dir($path."/".$item)){
+                $type="dir";
+            }else{
+                $size=$this->FileSizeConvert(filesize($path."/".$item));
+                $ext=pathinfo($path."/".$item,PATHINFO_EXTENSION);
+                foreach($types as $key=>$ft){
+                        if(in_array($ext,$ft)){
+                            $file_type=$key;
+                            break;
+                        }
+                }
+                if(empty($file_type))
+                    $file_type="doc";
+            }
+            array_push($output[$type],["name"=>$item,"size"=>$size,"path"=>"$path/$item","file_type"=>$file_type]);
+        }
+        return $output;
+    }
+
     public function cp($src,$dst){
         $dst.="/".pathinfo($src,PATHINFO_BASENAME);
         if(is_dir($src)){
@@ -71,7 +108,7 @@ class Storage{
         return substr(finfo_file($finfo,$path),0,4)=="text" || filesize($path)==0;
     }
 
-    public static function FileSizeConvert($bytes){
+    public function FileSizeConvert($bytes){
     $result="";
     $bytes = floatval($bytes);
         $arBytes = array(

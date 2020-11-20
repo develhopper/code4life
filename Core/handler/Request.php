@@ -20,8 +20,8 @@ class Request{
         return isset($_REQUEST[$key]);
     }
 
-    public function empty(){
-        return count($_REQUEST)>1?true:false;
+    public function isEmpty(){
+        return count($_REQUEST)>1?false:true;        
     }
 
     public function isMethod($method){
@@ -36,12 +36,16 @@ class Request{
         // Validator::validate($validate);
         $ext='.'.pathinfo($_FILES[$field]['name'],PATHINFO_EXTENSION);
         $file_name=time().$ext;
-        $dst= Upload.$file_name;
+        $dst= UPLOAD_DIR.$file_name;
         move_uploaded_file($_FILES[$field]['tmp_name'],$dst);
-        return BASEURL."/public/upload/".$file_name;
+        return BASEURL."/storage/".$file_name;
     }
 
     public function dump(){
         var_dump($_REQUEST);
+    }
+
+    public function files(){
+        return new File();
     }
 }
