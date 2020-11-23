@@ -4,17 +4,19 @@ namespace app\misc;
 use app\misc\Node;
 class Generator{
     
-    public static function category_checkboxes(Node $node){
-        $html="";
+    public static function category_checkboxes(Node $node,array $checked=[]){
+		$html="";
 		if($node->self){
-			$html.="<input name='categories[]' type='checkbox' value='{$node->self->id}'/><label>{$node->self->cat_name}</label>";
+			$ischecked=(in_array($node->self->id,$checked))?"checked":"";
+
+			$html.="<input name='categories[]' type='checkbox' value='{$node->self->id}' $ischecked/><label>{$node->self->cat_name}</label>";
 		if($node->hasChild()){
 			$html.="<ul class='subcat'>";
 		}
 		}
 		foreach($node as $child){
 			$html.="<li>";
-			$html.=self::category_checkboxes($child);
+			$html.=self::category_checkboxes($child,$checked);
 			$html.="</li>";
 		}
 		if($node->hasChild() && $node->self){

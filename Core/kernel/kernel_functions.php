@@ -67,3 +67,7 @@ function mimplode($glue,$field,$array){
 function del($path){
     unlink(DIR.$path);
 }
+
+function getValue($var,$default){
+    return (empty($var))?$default:$var;
+}

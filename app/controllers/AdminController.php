@@ -14,6 +14,7 @@ use app\models\Comment;
 use app\models\Category;
 use app\misc\Generator;
 use app\misc\Storage;
+use app\misc\G;
 
 class AdminController extends BaseController{
 
@@ -39,6 +40,25 @@ class AdminController extends BaseController{
         $catList=$model->toTree($categories);
         
         $this->view("admin/new_post.html",["title"=>"مطلب جدید","categories"=>Generator::category_checkboxes($catList)]);
+    }
+
+    public function edit($id){
+        $model=new Category();
+        $model->alias="c1";
+        $select="c1.id,c1.name as cat_name,c1.parent_id as parent_id,c2.name parent_name,c2.parent_id as parent_parent";
+        $categories=$model->select($select)->withParent()->get();
+        $catList=$model->toTree($categories);
+        
+        $post=new Post();
+        $post=$post->select()->where("id",$id)->first();
+        
+        $tags=$post->Tags()->get();
+        
+        $selected_categories=$post->Categories()->execute()->fetchAll(\PDO::FETCH_COLUMN);
+        
+        $this->view("admin/edit_post.html",
+        ["title"=>"ویرایش مطلب","post"=>$post,"categories"=>Generator::category_checkboxes($catList,$selected_categories),
+        "tags"=>$tags]);
     }
 
     public function submit_post(Request $request){
@@ -91,6 +111,49 @@ class AdminController extends BaseController{
         }
 
         $this->view("message.html",$params);
+    }
+
+    public function submit_edit($id,Request $request){
+        $thumbnail=$request->thumbnail;
+        $post=new Post();
+        
+        $post=$post->select()->where("id",$id)->first();
+        $post->title=_e($request->title);
+        $post->body=_e($request->body);
+        $post->description=_e($request->description);
+        
+        if(isset($_FILES["thumbnail"])){
+            $storage=new Storage();
+            $thumbnail=$storage->upload("/thumbnails",$_FILES["thumbnail"]);
+        }
+
+        $tags=$post->Tags("tags.name")->execute()->fetchAll(\PDO::FETCH_COLUMN);
+        
+        $categories=$post->Categories()->execute()->fetchAll(\PDO::FETCH_COLUMN);
+
+        
+        if($request->tags){
+            $tags_diff=G::array_diff2($tags,$request->tags);
+            $post_tags=[];
+            $description=($request->description)?$request->description:"''";
+            if(isset($tags_diff['added'])){
+                $tag=new Tag();
+                if($tag->save($request->tags)!=-1){
+                    $post_tags=$tag->select()->in("name",$request->tags)->asArray();
+                    $post->addTags($post_tags);
+                }
+            }
+            if(isset($tags_diff['removed']))
+                $post->removeTags($tags_diff['removed']);
+        }
+        
+        if($request->categories){
+            $categories_diff=G::array_diff2($categories,$request->categories);
+            if(isset($categories_diff['added']))
+                $post->addCategories($categories_diff['added']);
+            if(isset($categories_diff['removed']))
+                $post->removeCategories($categories_diff['removed']);
+        }
     }
     
     public function upload_image(Request $request){

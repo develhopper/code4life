@@ -7,11 +7,11 @@
     <div class="row reverse">
         <div class="col-2-3">
             <div class="card" style="height: 720px;">
-                <div class="card-title bg-grey rtl">نوشته جدید</div>
+                <div class="card-title bg-grey rtl">{{$title}}</div>
                 <div class="card-body" style="display: flex; flex-direction: column;">
 
                     <div class="col">
-                        <input class="rtl" type="text" name="title" placeholder="موضوع" maxlength="60" required>
+                        <input class="rtl" type="text" name="title" placeholder="موضوع" maxlength="60" value="{{$post->title}}" required>
                         <span class="counter">0/60</span>
                     </div>
 
@@ -23,15 +23,16 @@
                             <input type="file" name="thumbnail" id="thumb" style="display: none;" accept="image/*">
                             <div class="dropdown-content">
                                 <span class="thumbnail-reset"><i class="icon-trash"></i></span>
-                                <img id="preview" src="/storage/thumbnails/noimage.jpg" alt="thumbnail" class="thumbnail">
+                                <img id="preview" src="{{'/storage/'.getValue($post->thumbnail,'thumbnails/noimage.jpg')}}" alt="thumbnail" class="thumbnail">
+                                <input type="hidden" name="thumbnail" value="{{getValue($post->thumbnail,'')}}">
                             </div>
                         </div>
                     </div>
-                    <textarea class="ltr" name="body" id="editor" cols="30" rows="10" placeholder="متن" required></textarea>
+                    <textarea class="ltr" name="body" id="editor" cols="30" rows="10" placeholder="متن" required>{{_d($post->body)}}</textarea>
 
                     <div class="col">
                         <textarea class="rtl" name="description" cols="30" rows="2"
-                        placeholder="توضیحات مختصر" maxlength="150" required></textarea>
+                        placeholder="توضیحات مختصر" maxlength="150" required>{{$post->description}}</textarea>
                         <span class="counter">0/150</span>
                     </div>
 
@@ -58,7 +59,13 @@
                         <div class="card-body">
                             <input type="text" id="tagger" placeholder="برچسب" style="width: 80%;" data-action="#tag-list">
                             <div class="tags" id="tag-list">
-                               
+                               @foreach($tags as $tag)
+                                <div class="tag">
+                                    <span class="title">{{$tag->name}}</span>
+                                    <span class="close mr-auto"><i class="icon-cancel"></i></span>
+                                    <input type="hidden" name="tags[]" value="{{$tag->name}}">
+                                </div>
+                               @endforeach
                             </div>
                         </div>
                     </div>

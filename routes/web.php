@@ -19,6 +19,8 @@ Route::get("admin","AdminController@admin",$admin);
 Route::get("admin/new/post","AdminController@new_post",$admin);
 Route::put("admin/new/post","AdminController@submit_post",$admin);
 Route::post("admin/new/post/upload","AdminController@upload_image",$admin);
+Route::get("admin/edit/post/{id}","AdminController@edit",$admin);
+Route::put("admin/edit/post/{id}","AdminController@submit_edit",$admin);
 
 Route::get("admin/recent/posts","AdminController@recent_posts",$admin);
 Route::get("admin/recent/comments","AdminController@recent_comments",$admin);
