@@ -70,4 +70,8 @@ class Router{
         else
             throw new RouteException("Method not Allowed",405);
     }
+
+    public function __get($key){
+        return $this->$key;
+    }
 }

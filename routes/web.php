@@ -23,7 +23,11 @@ Route::get("admin/edit/post/{id}","AdminController@edit",$admin);
 Route::put("admin/edit/post/{id}","AdminController@submit_edit",$admin);
 
 Route::get("admin/recent/posts","AdminController@recent_posts",$admin);
+Route::delete("admin/recent/posts","AdminController@delete_post",$admin);
+
 Route::get("admin/recent/comments","AdminController@recent_comments",$admin);
+Route::put("admin/recent/comments","AdminController@comments_action",$admin);
+
 Route::get("admin/user_management","AdminController@user_management",$admin);
 Route::get("admin/page_settings","AdminController@page_settings",$admin);
 

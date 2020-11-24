@@ -50,6 +50,13 @@ $(function () {
         $("#preview").attr("src","../images/noimage.jpg");
     });
 
+    $("form.confirm").on("submit",function(e){
+        e.preventDefault();
+        if(confirm("Are You Sure?")){
+            this.submit();
+        }
+    });
+
 });
 
 

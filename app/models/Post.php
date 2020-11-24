@@ -7,7 +7,7 @@ class Post extends Model{
     protected $table="posts";
 
     public function comments(){
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class,false)->and("accepted","1")->get();
     }
 
     public function addTags($tags){

@@ -125,7 +125,10 @@ class AdminController extends BaseController{
         if(isset($_FILES["thumbnail"])){
             $storage=new Storage();
             $thumbnail=$storage->upload("/thumbnails",$_FILES["thumbnail"]);
+            $post->thumbnail=$thumbnail;
         }
+        
+        $post->update(true);
 
         $tags=$post->Tags("tags.name")->execute()->fetchAll(\PDO::FETCH_COLUMN);
         
@@ -154,6 +157,7 @@ class AdminController extends BaseController{
             if(isset($categories_diff['removed']))
                 $post->removeCategories($categories_diff['removed']);
         }
+        $this->view("message.html",["title"=>"انجام شد","message"=>"انجام شد :)","color"=>"success","link"=>"/admin"]);
     }
     
     public function upload_image(Request $request){
@@ -170,16 +174,37 @@ class AdminController extends BaseController{
         $this->view("admin/recent_posts.html",["title"=>"مطالب اخیر","posts"=>$posts]);
     }
 
+    public function delete_post(Request $request){
+        if($request->action && $request->posts){
+            $post=new Post();
+            $post->query="delete from posts where id in(".implode(",",$request->posts).")";
+            $post->execute();
+            $this->view("message.html",["title"=>"انجام شد","message"=>"انجام شد :)","color"=>"success","link"=>"/admin"]);
+        }
+        $this->view("message.html",["title"=>"خطا","message"=>"لطفا پارامتر های ورودی را چک کنید","color"=>"danger","link"=>Session::get("current_route")]);
+    }
+
     public function recent_comments(){
         $comment=new Comment();
         $comments=$comment->select()->get();
         $this->view("admin/recent_comments.html",["title"=>"نظرات اخیر","comments"=>$comments]);
     }
 
+    public function comments_action(Request $request){
+        if($request->action && $request->comments){
+            $comment=new Comment();
+            $value=($request->action=="accept")?1:0;
+            $comment->query="update comments set accepted=$value where id in (".implode(",",$request->comments).")";
+            $comment->execute();
+            $this->view("message.html",["title"=>"انجام شد","message"=>"انجام شد :)","color"=>"success","link"=>"/admin"]);
+        }
+        $this->view("message.html",["title"=>"خطا","message"=>"لطفا پارامتر های ورودی را چک کنید","color"=>"danger","link"=>Session::get("current_route")]);
+    }
+
     public function user_management(){
         $user=new User();
         $select="users.id,users.username,users.email,users.verified,roles.name as role";
-        $users=$user->select($select)->withRoles()->get();
+        $users=$user->select($select)->withRoles()->where("users.id","!=",Session::get("user_id"))->get();
         $this->view("admin/user_management.html",["title"=>"مدیریت کاربران","users"=>$users]);
     }
 

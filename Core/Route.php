@@ -52,4 +52,8 @@ class Route
         return self::add($route, $controller, "DELETE",$middleware);
     }
 
+    public static function dump(){
+        $router=Router::getInstance();
+        var_dump($router->routes);
+    } 
 }
