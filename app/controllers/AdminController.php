@@ -33,11 +33,7 @@ class AdminController extends BaseController{
     }
 
     public function new_post(){
-        $model=new Category();
-        $model->alias="c1";
-        $select="c1.id,c1.name as cat_name,c1.parent_id as parent_id,c2.name parent_name,c2.parent_id as parent_parent";
-        $categories=$model->select($select)->withParent()->get();
-        $catList=$model->toTree($categories);
+        $catList=G::get_category_tree();
         
         $this->view("admin/new_post.html",["title"=>"مطلب جدید","categories"=>Generator::category_checkboxes($catList)]);
     }
@@ -46,8 +42,8 @@ class AdminController extends BaseController{
         $model=new Category();
         $model->alias="c1";
         $select="c1.id,c1.name as cat_name,c1.parent_id as parent_id,c2.name parent_name,c2.parent_id as parent_parent";
-        $categories=$model->select($select)->withParent()->get();
-        $catList=$model->toTree($categories);
+        $categories=$model->select($select)->withParent()->sort("c1.id")->get();
+        $catList=G::get_category_tree();
         
         $post=new Post();
         $post=$post->select()->where("id",$id)->first();
@@ -217,8 +213,10 @@ class AdminController extends BaseController{
             $category=new Category();
             $category->name=$request->title;
             $category->slug=slug($request->title);
-            if($request->parent)
+            $category->description=$request->description;
+            if(isset($request->parent[0])){
                 $category->parent_id=$request->parent[0];
+            }
             $category->save();
         }
         $categories=new Category();
@@ -227,6 +225,35 @@ class AdminController extends BaseController{
         $categories=$categories->select($select)->withParent()->get();
 
         $this->view("admin/category_settings.html",["title"=>"تنظیمات دسته بندی ها","categories"=>$categories]);
+    }
+
+    public function category_delete(Request $request){
+        $category=new Category();
+        if($request->action=="delete" && $category->delete("id",$request->category_id[0])->execute()){
+            $this->view("message.html",["title"=>"انجام شد","message"=>"انجام شد :)","color"=>"success","link"=>"/admin/category_settings"]);
+        }
+    }
+
+    public function category_edit($id,Request $request){
+        $model=new Category();
+        $category=$model->select()->where("id",$id)->first();
+        if($request->isMethod("PUT")){
+            $category->name=$request->title;
+            $category->slug=slug($request->title);
+            $category->description=$request->description;
+            if(isset($request->parent[0])){
+                $category->parent_id=$request->parent[0];
+            }else{
+                $category->parent_id=null;
+            }
+            $category->update(true);
+            redirect("/admin/category_settings");
+        }
+        $model->alias="c1";
+        $select="c1.id,c1.name as cat_name,c1.parent_id as cat_parent,c2.name parent_name,c2.parent_id as parent_parent";
+        $categories=$model->select($select)->withParent()->get();
+        
+        $this->view("admin/category_edit.html",["title"=>"ویرایش دسته بندی","categories"=>$categories,"orig_category"=>$category]);
     }
 
     public function notes(Request $request){

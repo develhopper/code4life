@@ -1,11 +1,12 @@
 $(function () {
     try{
         $('#editor').summernote({ height: 300 ,
+            placeholder:$("#editor").attr("placeholder"),
             callbacks:{
                 onImageUpload:function(files,editor,welEditable){
                     upload(files[0],this);
                 }
-            } 
+            }
         });
     }catch(e){}
 

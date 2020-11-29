@@ -289,7 +289,7 @@ function pasteInto(context){
 }
 
 function call(route,type,data,callback=null,error=null){
-    var url=baseurl+route;
+    var url=route;
     if(callback==null)
         callback=defaultCallback;
     if(error==null)

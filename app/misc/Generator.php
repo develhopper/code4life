@@ -8,11 +8,11 @@ class Generator{
 		$html="";
 		if($node->self){
 			$ischecked=(in_array($node->self->id,$checked))?"checked":"";
-
 			$html.="<input name='categories[]' type='checkbox' value='{$node->self->id}' $ischecked/><label>{$node->self->cat_name}</label>";
-		if($node->hasChild()){
-			$html.="<ul class='subcat'>";
-		}
+			
+			if($node->hasChild()){
+				$html.="<ul class='subcat'>";
+			}
 		}
 		foreach($node as $child){
 			$html.="<li>";
@@ -28,10 +28,7 @@ class Generator{
     public static function category_nav(Node $node){
         $html="";
 		if($node->self){
-            $href="/category";
-            if($node->self->parent_id)
-                $href.="/".$node->self->parent_slug;
-            $href.="/".$node->self->cat_slug;
+            $href="/category/".$node->self->id;
             if($node->self->parent_id)
                 $html.="|_";
             else

@@ -7,8 +7,9 @@ $admin=["auth","admin"];
 Route::post("test","IndexController@test");
 
 Route::get("/","IndexController@index");
-Route::get("cache/invalidate","IndexController@invalidateCache");
 Route::get("p/{slug}","IndexController@post");
+Route::get("category/{id}","IndexController@category");
+Route::get("cache/invalidate","IndexController@invalidateCache");
 Route::get("login","HomeController@login");
 Route::get("logout","HomeController@logout");
 Route::post("login","HomeController@login");
@@ -33,7 +34,9 @@ Route::get("admin/page_settings","AdminController@page_settings",$admin);
 
 Route::get("admin/category_settings","AdminController@category_settings",$admin);
 Route::put("admin/category_settings","AdminController@category_settings",$admin);
-Route::delete("admin/category_settings","AdminController@category_settings",$admin);
+Route::delete("admin/category_settings","AdminController@category_delete",$admin);
+Route::get("admin/category_settings/{id}","AdminController@category_edit",$admin);
+Route::put("admin/category_settings/{id}","AdminController@category_edit",$admin);
 
 Route::get("admin/notes","AdminController@notes",$admin);
 Route::put("admin/notes","AdminController@notes",$admin);

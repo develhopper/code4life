@@ -6,22 +6,15 @@ use app\models\Post;
 use app\models\Category;
 use app\misc\Generator;
 use Core\handler\Request;
+use app\misc\G;
 
 class IndexController extends BaseController{
 
     public function index(){
         $model=new Post();
         $posts=$model->select()->get();
-        
-        $model=new Category();
-        $model->alias="c1";
-        $select="c1.id,c1.name as cat_name,
-        c1.slug as cat_slug,c2.slug as parent_slug,
-        c1.parent_id as parent_id,c2.name parent_name,
-        c2.parent_id as parent_parent,count(posts_categories.id) as count ";
-        $categories=$model->select($select)->withParent()->withCount()->sort("c1.id")->get();
-        $catList=$model->toTree($categories);
-        $this->view("index.html",["posts"=>$posts,"categories"=>Generator::category_nav($catList)]);
+        $catList=G::get_category_tree();
+        $this->view("index.html",["title"=>"صفحه اصلی","posts"=>$posts,"categories"=>Generator::category_nav($catList)]);
     }
 
     public function post($slug){
@@ -29,16 +22,20 @@ class IndexController extends BaseController{
         $post=$model->select()->where("slug",$slug)->get()[0];
         $comments=$post->comments();
         
-        $model=new Category();
-        $model->alias="c1";
-        $select="c1.id,c1.name as cat_name,
-        c1.slug as cat_slug,c2.slug as parent_slug,
-        c1.parent_id as parent_id,c2.name parent_name,
-        c2.parent_id as parent_parent,count(posts_categories.id) as count ";
-        $categories=$model->select($select)->withParent()->withCount()->sort("c1.id")->get();
-        $catList=$model->toTree($categories);
+        $catList=G::get_category_tree();
         
         $this->view("post.html",["post"=>$post,"comments"=>$comments,"categories"=>Generator::category_nav($catList)]);
+    }
+
+    public function category($id){
+        $post=new Post();
+        $select="posts.id,posts.title,slug,description";
+        $posts=$post->select($select)->join(\app\models\PostCategory::class)->where("category_id",$id)->sort("created_at","DESC")->get();
+        
+        $category=new Category();
+        $category=$category->select()->where("id",$id)->first();
+        $this->view("category.html",["title"=>$category->name,"category"=>$category,"posts"=>$posts,
+        "categories"=>Generator::category_nav(G::get_category_tree())]);
     }
 
     public function invalidateCache(){

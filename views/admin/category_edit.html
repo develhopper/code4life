@@ -9,7 +9,7 @@
                 <form action="" method="POST">
                         <input type="hidden" name="_method" value="PUT">
                         {{csrf_field()}}
-                        <input class="form-input" type="text" name="title" id="" placeholder="نام دسته بندی" required>
+                        <input class="form-input" type="text" name="title" value="{{$orig_category->name}}" placeholder="نام دسته بندی" required>
                         
                         <div class="card" style="margin-top:15px;width: 400px;">
                             <div class="card-title bg-grey">انتخاب دسته بندی پدر</div>
@@ -30,8 +30,9 @@
                                             <td>-</td>
                                         </tr>
                                         @foreach($categories as $category)
+                                            {% $checked=($category->id===$orig_category->parent_id)?"checked":""; %}
                                         <tr>
-                                            <td><input value="{{$category->id}}" type="radio" name="parent[]"></td>
+                                            <td><input value="{{$category->id}}" type="radio" name="parent[]" {{$checked}}></td>
                                             <td>{{$category->cat_name}}</td>
                                             <td>{{($category->parent_name)}}</td>
                                         </tr>
@@ -42,53 +43,9 @@
                             <input id="parent_search" type="text" class="form-input" placeholder="جستوجو" data-table="#parent_category">
                         </div>
                         <div class="ltr">
-                            <textarea name="description" cols="30" rows="10" id="editor" placeholder="description"></textarea>
+                            <textarea name="description" cols="30" rows="10" id="editor" placeholder="description">{{$orig_category->description}}</textarea>
                         </div>
-                        <input type="submit" value="افزودن" class="btn btn-primary ml-auto">
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-1">
-        <div class="card rtl post">
-            <div class="card-title bg-cyan">لیست دسته بندی ها</div>
-            <div class="card-body">
-                <form action="#" method="POST">
-                    <input type="hidden" name="_method" value="DELETE">
-                    {{csrf_field()}}
-                    <div style="height: 300px;overflow: scroll; width: 100%;">
-                        <table class="table stripe">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>نام</th>
-                                    <th>دسته بندی پدر</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @foreach($categories as $category)
-                                <tr>
-                                    <td><input value="{{$category->id}}" type="radio" name="category_id[]"></td>
-                                    <td>{{$category->cat_name}}</td>
-                                    <td>{{($category->parent_name)}}</td>
-                                    <td><a href="/admin/category_settings/{{$category->id}}">ویرایش</a></td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-1" style="margin-top: 10px;">
-                        <label for="action" style="padding:5px;">عملیات :</label>
-                        <select name="action" id="action" style="width: 300px; padding:5px">
-                            <option value="none" selected>انتخاب کنید</option>
-                            <option value="delete">حذف</option>
-                        </select>
-                        <input type="submit" value="اعمال" class="btn btn-primary ml-auto">
-                    </div>
+                        <input type="submit" value="ثبت" class="btn btn-primary ml-auto">
                 </form>
             </div>
         </div>
