@@ -2,6 +2,5 @@
 composer.lock
 config.php
 setup.php
-public/js/jquery.js
-public/js/editor/*
 storage/*
+public/cache/*

@@ -2,9 +2,19 @@
 namespace app\models;
 
 use Core\Model;
+use Jalalib\JDF;
 
 class Post extends Model{
     protected $table="posts";
+
+    public function jdate(){
+      $date=new \DateTime($this->created_at);
+      $y=$date->format("Y");
+      $m=$date->format("m");
+      $d=$date->format("d");
+      $time=$date->format("H:i:s");
+      return implode("/",JDF::gregorian_to_jalali($y,$m,$d))." ".$time;
+    }
 
     public function comments(){
         return $this->hasMany(Comment::class,false)->and("accepted","1")->get();
@@ -45,7 +55,7 @@ class Post extends Model{
                 array_push($values,"($this->id,$category)");
             }
             $model->query.=implode(",",$values);
-            
+
             $model->execute();
         }
     }

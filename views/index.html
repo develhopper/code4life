@@ -1,3 +1,4 @@
+{% use Jalalib\JDF;%}
 @extends('partials/base.html')
 
 @section('content')
@@ -6,6 +7,7 @@
     <div class="card post rtl bg-grey">
         <div class="card-title">
             <h2>{{$post->title}}</h2>
+            <span class="mr-auto underline ltr">{{$post->jdate()}}</span>
         </div>
         <div class="card-body">
             {{_d($post->body)}}

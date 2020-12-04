@@ -12,6 +12,7 @@
     "minimum-stability": "stable",
     "require": {
         "develhopper/qbuilder": "2.1.0",
-        "develhopper/primal": "1.3.0"
+        "develhopper/primal": "1.3.0",
+        "develhopper/jalalib": "^1.0"
     }
 }

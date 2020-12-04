@@ -214,7 +214,7 @@ class AdminController extends BaseController{
             $category->name=$request->title;
             $category->slug=slug($request->title);
             $category->description=$request->description;
-            if(isset($request->parent[0])){
+            if(!empty($request->parent[0])){
                 $category->parent_id=$request->parent[0];
             }
             $category->save();
@@ -241,7 +241,7 @@ class AdminController extends BaseController{
             $category->name=$request->title;
             $category->slug=slug($request->title);
             $category->description=$request->description;
-            if(isset($request->parent[0])){
+            if(!empty($request->parent[0])){
                 $category->parent_id=$request->parent[0];
             }else{
                 $category->parent_id=null;
