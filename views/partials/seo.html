@@ -2,6 +2,9 @@
   @if(isset($seo_items["description"]))
     <meta name="description" content="{{$seo_items['description']}}">
   @endif
+  @if(isset($seo_items["canonical"]))
+    <meta href="{{$seo_items['canonical']}}" rel="canonical">
+  @endif
   @if(isset($seo_items["og"]))
     @foreach($seo_items["og"] as $key=>$item)
       <meta property="og:{{$key}}" content="{{$item}}">

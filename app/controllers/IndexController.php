@@ -15,6 +15,7 @@ class IndexController extends BaseController{
         $posts=$model->select()->get();
         $seo_items=[
           "description"=>"کد برای زندگی | البته اینجا منظور از زندگی، زندگی مادی نیست",
+          "canonical"=>BASEURL,
           "og"=>[
             "title"=>"کد برای زندگی",
             "description"=>"کد برای زندگی | البته اینجا منظور از زندگی، زندگی مادی نیست",
@@ -33,6 +34,7 @@ class IndexController extends BaseController{
         $comments=$post->comments();
         $seo_items=[
           "description"=>$post->description,
+          "canonical"=>BASEURL."/p/".$post_slug,
           "og"=>[
             "title"=>$post->title,
             "description"=>$post->description,
