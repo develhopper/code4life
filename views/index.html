@@ -1,4 +1,3 @@
-{% use Jalalib\JDF;%}
 @extends('partials/base.html')
 
 @section('content')
@@ -15,5 +14,13 @@
         <a href="{{BASEURL.'/p/'.$post->slug}}" class="btn btn-primary mr-auto">بیشتر</a>
     </div>
     @endforeach
+    <ul class="pagination">
 
+    </ul>
+@endsection
+
+@section('js')
+  <script type="text/javascript">
+    {{ "make_pagination('.pagination',$pagination[current],$pagination[total],'$pagination[link]');"}}
+  </script>
 @endsection

@@ -10,9 +10,12 @@ use app\misc\G;
 
 class IndexController extends BaseController{
 
-    public function index(){
+    public function index(Request $request){
+        $page=($request->page)?$request->page:1;
+        $per_page=10;
+
         $model=new Post();
-        $posts=$model->select()->get();
+        $posts=$model->select()->sort("created_at","DESC")->paginate($page,$per_page)->get();
         $seo_items=[
           "description"=>"کد برای زندگی | البته اینجا منظور از زندگی، زندگی مادی نیست",
           "canonical"=>BASEURL,
@@ -24,8 +27,13 @@ class IndexController extends BaseController{
           ]
         ];
         $catList=G::get_category_tree();
+        $pagination=[
+          "current"=>$page,
+          "total"=>ceil($model->count()/10),
+          "link"=>"?page={page}"
+        ];
         $this->view("index.html",["title"=>"کد برای زندگی","posts"=>$posts,
-        "categories"=>Generator::category_nav($catList),"seo_items"=>$seo_items]);
+        "categories"=>Generator::category_nav($catList),"seo_items"=>$seo_items,"pagination"=>$pagination]);
     }
 
     public function post($slug){
@@ -50,21 +58,44 @@ class IndexController extends BaseController{
         "categories"=>Generator::category_nav($catList),"seo_items"=>$seo_items]);
     }
 
-    public function category($id){
-        $post=new Post();
+    public function category($id,Request $request){
+        $page=($request->page)?$request->page:1;
+        $per_page=10;
+        $model=new Post();
         $select="posts.id,posts.title,slug,description";
-        $posts=$post->select($select)->join(\app\models\PostCategory::class)->where("category_id",$id)->sort("created_at","DESC")->get();
+        $posts=$model->select($select)->join(\app\models\PostCategory::class)->where("category_id",$id)->sort("created_at","DESC")->paginate($page,$per_page)->get();
+
+        $total=$model->select("count(*)")->join(\app\models\PostCategory::class)->where("category_id",$id)->execute()->fetchColumn();
+
+        $pagination=[
+          "current"=>$page,
+          "total"=>ceil($total/10),
+          "link"=>"?page={page}"
+        ];
 
         $category=new Category();
         $category=$category->select()->where("id",$id)->first();
         $this->view("category.html",["title"=>$category->name,"category"=>$category,"posts"=>$posts,
-        "categories"=>Generator::category_nav(G::get_category_tree())]);
+        "categories"=>Generator::category_nav(G::get_category_tree()),"pagination"=>$pagination]);
     }
 
     public function invalidateCache(){
         echo "invalidating caches ... <br>";
         file_put_contents(BASEDIR."/public/cache/cache.json","");
         echo "done";
+    }
+
+    public function dummy(){
+      $post=new Post();
+      for($i=0;$i<50;$i++){
+        $post->title="title ".$i;
+        $post->body="body";
+        $post->description="description";
+        $post->author_id=1;
+        $post->slug=slug($post->title);
+        $post->uri="p/".$post->slug;
+        $post->save();
+      }
     }
 
     public function test(Request $reqeust){

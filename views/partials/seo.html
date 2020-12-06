@@ -3,7 +3,7 @@
     <meta name="description" content="{{$seo_items['description']}}">
   @endif
   @if(isset($seo_items["canonical"]))
-    <meta href="{{$seo_items['canonical']}}" rel="canonical">
+    <meta rel="canonical" href="{{$seo_items['canonical']}}">
   @endif
   @if(isset($seo_items["og"]))
     @foreach($seo_items["og"] as $key=>$item)

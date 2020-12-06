@@ -9,7 +9,6 @@ Route::post("test","IndexController@test");
 Route::get("/","IndexController@index");
 Route::get("p/{slug}","IndexController@post");
 Route::get("category/{id}","IndexController@category");
-Route::get("cache/invalidate","IndexController@invalidateCache");
 Route::get("login","HomeController@login");
 Route::get("logout","HomeController@logout");
 Route::post("login","HomeController@login");
@@ -42,3 +41,7 @@ Route::get("admin/notes","AdminController@notes",$admin);
 Route::put("admin/notes","AdminController@notes",$admin);
 
 Route::get("admin/files","AdminController@files",$admin);
+
+// TEST
+Route::get("cache/invalidate","IndexController@invalidateCache");
+// Route::get("dummy/posts","IndexController@dummy");

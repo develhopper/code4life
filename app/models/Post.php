@@ -87,4 +87,16 @@ class Post extends Model{
         $this->query="select category_id from posts_categories join categories on categories.id=category_id where post_id=$this->id";
         return $this;
     }
+
+    public function paginate($page,$per_page){
+      $page=($page-1)*10;
+      $this->query.=" limit $page,$per_page";
+      return $this;
+    }
+
+    public function count(){
+      $query="select count(*) from $this->table";
+      $result=$this->db->query($query);
+      return $result->fetchColumn();
+    }
 }

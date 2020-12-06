@@ -99,3 +99,39 @@ function after_input(id,func){
         },timeout);
     });
 }
+
+function make_pagination(selector,current,total,link){
+  var pagination=$(selector).empty();
+  var start=1;
+
+  var start_gap=current-start;
+  var end_gap=total-current;
+
+  if(current>start){
+    $(pagination).append($("<a></a>").addClass("item").text("<").attr("href",link.replace("{page}",current-1)));
+    $(pagination).append($("<a></a>").addClass("item").text(start).attr("href",link.replace("{page}",start)));
+  }
+
+  if(start_gap>4){
+    $(pagination).append($("<p></p>").addClass("item").text("..."));
+  }
+
+  for(i=current-3;i<=current+3;i++){
+    if(i==current){
+      $(pagination).append($("<p></p>").addClass("item current").text(current));
+      continue;
+    }
+    if(i>start && i<total){
+      $(pagination).append($("<a></a>").addClass("item").text(i).attr("href",link.replace("{page}",i)));
+    }
+  }
+
+  if(end_gap>4){
+    $(pagination).append($("<p></p>").addClass("item").text("..."));
+  }
+
+  if(current<total){
+    $(pagination).append($("<a></a>").addClass("item").text(total).attr("href",link.replace("{page}",total)));
+    $(pagination).append($("<a></a>").addClass("item").text(">").attr("href",link.replace("{page}",current+1)));
+  }
+}
