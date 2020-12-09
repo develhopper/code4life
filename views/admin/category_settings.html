@@ -10,7 +10,7 @@
                         <input type="hidden" name="_method" value="PUT">
                         {{csrf_field()}}
                         <input class="form-input" type="text" name="title" id="" placeholder="نام دسته بندی" required>
-                        
+
                         <div class="card" style="margin-top:15px;width: 400px;">
                             <div class="card-title bg-grey">انتخاب دسته بندی پدر</div>
                             <div class="card-body" style="height:250px;overflow: auto;">
@@ -41,7 +41,7 @@
                             </div>
                             <input id="parent_search" type="text" class="form-input" placeholder="جستوجو" data-table="#parent_category">
                         </div>
-                        <div class="ltr">
+                        <div>
                             <textarea name="description" cols="30" rows="10" id="editor" placeholder="description"></textarea>
                         </div>
                         <input type="submit" value="افزودن" class="btn btn-primary ml-auto">

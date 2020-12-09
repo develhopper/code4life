@@ -85,6 +85,10 @@ form.bg-dark .form-input{
 	padding-inline-start: 0;
 }
 
+.cat li{
+	margin-top: 5px;
+}
+
 .cat a{
 	color:#039be5;
 }

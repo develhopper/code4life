@@ -28,7 +28,10 @@
                             </div>
                         </div>
                     </div>
-                    <textarea class="ltr" name="body" id="editor" cols="30" rows="10" placeholder="متن" required>{{_d($post->body)}}</textarea>
+
+                    <div class="rtl">
+                      <textarea name="body" id="editor" cols="30" rows="10" placeholder="متن" required>{{_d($post->body)}}</textarea>
+                    </div>
 
                     <div class="col">
                         <textarea class="rtl" name="description" cols="30" rows="2"

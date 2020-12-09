@@ -42,7 +42,7 @@ class IndexController extends BaseController{
         $comments=$post->comments();
         $seo_items=[
           "description"=>$post->description,
-          "canonical"=>BASEURL."/p/".$post_slug,
+          "canonical"=>BASEURL."/p/".$slug,
           "og"=>[
             "title"=>$post->title,
             "description"=>$post->description,
