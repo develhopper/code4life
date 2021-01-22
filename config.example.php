@@ -1,5 +1,8 @@
 <?php
 
+// set app key for encryption purposes
+const APP_KEY="LHwuCFUl+K/EfSWacxsG8A==";
+
 const DEBUG=true;
 const BASEURL="< your website url >";
 const BASEDIR = __DIR__;

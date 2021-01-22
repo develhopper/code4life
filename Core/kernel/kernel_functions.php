@@ -31,7 +31,7 @@ function csrf_token(){
 
 function redirect($route){
     if($route=="back"){
-        header("Location:javascrtipt://history.go(-1)");
+        echo "<script>window.history.back();</script>";
         exit;
     }
     header("Location: ".BASEURL."$route");
@@ -70,4 +70,8 @@ function del($path){
 
 function getValue($var,$default){
     return (empty($var))?$default:$var;
+}
+
+function encrypt($string){
+    return crypt($string,APP_KEY);
 }

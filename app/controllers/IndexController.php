@@ -4,8 +4,10 @@ namespace app\controllers;
 use Core\BaseController;
 use app\models\Post;
 use app\models\Category;
+use app\models\Comment;
 use app\misc\Generator;
 use Core\handler\Request;
+use Core\handler\Session;
 use app\misc\G;
 
 class IndexController extends BaseController{
@@ -56,6 +58,20 @@ class IndexController extends BaseController{
         $this->view("post.html",
         ["title"=>$post->title,"post"=>$post,"comments"=>$comments,
         "categories"=>Generator::category_nav($catList),"seo_items"=>$seo_items]);
+    }
+
+    public function comment($post_id,Request $request){
+        $comment=new Comment();
+        $comment->name=_e($request->name);
+        $comment->body=_e($request->body);
+        $comment->email=_e($request->email);
+        $comment->post_id=$post_id;
+        if($comment->save()){
+          Session::flash("message","کامنت شما ثبت شد پس از تایید در وبسایت درج خواهد شد");
+        }else{
+          Session::flash("message","مشکلی پیش اومده :( صبر کنید ببینیم چی میشه");
+        }
+        redirect("back");
     }
 
     public function category($id,Request $request){

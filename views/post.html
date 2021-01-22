@@ -7,11 +7,13 @@
     <div class="article-footer">
         <div class="row">{{$post->jdate()}}</div>
         <div class="row">
-            <form action="/api/new/comment/{{$post->id}}" method="post" id="comment-form">
+            <form action="/c/{{$post->id}}" method="POST">
                 <p>نظر خود  را بنویسید</p>
-                <input type="text" name="name" id="" class="form-input" placeholder="نام">
+                {{csrf_field()}}
+                <input type="text" name="name" id="" class="form-input" placeholder="نام" required>
                 <input type="email" name="email" id="" class="form-input" placeholder="ایمیل (اخنیاری)">
-                <textarea name="comment"cols="30" rows="10" class="form-input"></textarea>
+                <textarea name="body"cols="30" rows="10" class="form-input" required></textarea>
+                <input type="submit" value="ارسال" class="btn btn-success">
             </form>
         </div>
         <div class="row">
@@ -28,4 +30,11 @@
 
 </div>
 
+@endsection
+
+@section('js')
+    {% use Core\handler\Session; %}
+    @if(Session::has('message'))
+        <script>make_toast("{{Session::flash(message)}}","primary",true)</script>
+    @endif
 @endsection

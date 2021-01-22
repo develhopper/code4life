@@ -8,6 +8,7 @@ Route::post("test","IndexController@test");
 
 Route::get("/","IndexController@index");
 Route::get("p/{slug}","IndexController@post");
+Route::post("c/{post_id}","IndexController@comment");
 Route::get("category/{id}","IndexController@category");
 Route::get("login","HomeController@login");
 Route::get("logout","HomeController@logout");
