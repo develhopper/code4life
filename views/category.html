@@ -2,25 +2,16 @@
 
 @section('content')
     @if($category->description)
-    <div class="card post rtl" style="box-shadow: none;">
-        <div class="card-title bg-grey">
-            <h2>{{$category->name}}</h2>
-        </div>
-        <div class="card-body">
-            {{$category->description}}
-        </div>
+    <div class="article rtl featured">
+        <h2 class="article-title">{{$category->name}}</h2>
+        <div class="article-body">{{$category->description}}</div>
     </div>
     @endif
     @foreach($posts as $post)
-    <div class="card post rtl bg-grey">
-        <div class="card-title">
-            <h2>{{$post->title}}</h2>
-        </div>
-        <div class="card-body">
-            {{_d($post->description)}}
-        </div>
-        <a href="{{BASEURL.'/p/'.$post->slug}}" class="btn btn-primary mr-auto">بیشتر</a>
-    </div>
+    <a href="/p/{{$post->slug}}" class="article rtl">
+        <h2 class="article-title">{{$post->title}}</h2>
+        <div class="article-body">{{$post->description}}</div>
+    </a>
     @endforeach
     <ul class="pagination">
 

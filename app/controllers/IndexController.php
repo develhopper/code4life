@@ -54,7 +54,7 @@ class IndexController extends BaseController{
         $catList=G::get_category_tree();
 
         $this->view("post.html",
-        ["post"=>$post,"comments"=>$comments,
+        ["title"=>$post->title,"post"=>$post,"comments"=>$comments,
         "categories"=>Generator::category_nav($catList),"seo_items"=>$seo_items]);
     }
 
