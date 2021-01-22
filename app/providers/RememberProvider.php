@@ -14,7 +14,7 @@ class RememberProvider{
             $remember_token=Cookie::get("remember_token");
 
             $user=new User();
-            $user=$user->withLogin()->where("user_logins.id",$login_id)->and("remember_token",$remember_token)->first();
+            $user=$user->select("*")->withLogin()->where("user_logins.id",$login_id)->and("remember_token",$remember_token)->first();
             if($user){
                 $expired_at=new \DateTime($user->expired_at);
                 $now=new \DateTime();

@@ -84,7 +84,11 @@ class AdminController extends BaseController{
         
         $post=new Post();
         $post->title=_e($request->title);
-        $post->slug=slug($request->title);
+        
+        if($request->has("slug") && !is_null($request->slug))
+            $post->slug=slug($request->slug);
+            else
+                $post->slug=slug($request->title);
         $post->uri="p/".slug($request->title);
         $post->body=_e($request->body);
         $post->description=_e($description);
@@ -117,7 +121,10 @@ class AdminController extends BaseController{
         $post->title=_e($request->title);
         $post->body=_e($request->body);
         $post->description=_e($request->description);
-        
+        if($request->has("slug") && !is_null($request->slug))
+            $post->slug=slug($request->slug);
+            else
+                $post->slug=slug($request->title);
         if(isset($_FILES["thumbnail"])){
             $storage=new Storage();
             $thumbnail=$storage->upload("/thumbnails",$_FILES["thumbnail"]);

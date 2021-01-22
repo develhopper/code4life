@@ -42,7 +42,7 @@ function is_route($route){
 }
 
 function slug($var){
-    return strtolower(preg_replace("/\s/","_",$var));
+    return strtolower(preg_replace("/\s/","-",$var));
 }
 
 function auth(){
