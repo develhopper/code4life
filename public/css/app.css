@@ -80,6 +80,25 @@ a.article:hover{
 	padding:5px;
 }
 
+.article a{
+	text-decoration: underline;
+}
+
+.article a:hover{
+	color:#EB5E28;
+	text-decoration: none;
+}
+
+a.tag{
+	margin:5px;
+	color:#EB5E28;
+	border-bottom:1px solid black
+}
+
+.fdigit{
+	font-family: Samim FD WOL;
+}
+
 .btn {
 	border:none;
 	font-family: Samim, Arial, Helvetica, sans-serif;

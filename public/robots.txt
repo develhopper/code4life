@@ -1,0 +1,5 @@
+User-agent: *
+
+Allow: /
+#Sitemap Reference
+Sitemap:http://www.code4life.ir/sitemap.xml
