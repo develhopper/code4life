@@ -2,6 +2,8 @@
 namespace app\models;
 
 use Core\Model;
+use app\models\Post;
+
 class Tag extends Model{
     protected $table="tags";
 
@@ -29,5 +31,12 @@ class Tag extends Model{
 
     public function asArray(){
         return $this->execute()->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function posts($tag_id){
+        $query="select posts.* from posts join posts_tags on posts.id=post_id where tag_id=$tag_id";
+        $post=new Post();
+        $post->query=$query;
+        return $post;
     }
 }

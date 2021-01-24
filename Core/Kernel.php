@@ -30,7 +30,7 @@ class Kernel
             $this->route = $this->router->find($request->url);
             $this->request=$request;
             $this->Routemiddleware();
-            RegisterProvider::register();
+            RegisterProvider::register($request);
         }catch(RouteException $e){
             Error::send($e->code);
         }
@@ -66,11 +66,11 @@ class Kernel
     }
     private function setParams()
     {
-        $url_parts = explode("/", $_GET['url']);
+        $url_parts = explode("/", $this->request->url);
         $parts = explode("\/", $this->route['regex']);
         foreach ($parts as $key => $p) {
             if ($p == "(.+)")
-            array_push($this->params, $url_parts[$key]);
+                array_push($this->params, $url_parts[$key]);
         }
     }
     }

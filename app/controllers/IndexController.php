@@ -3,6 +3,7 @@ namespace app\controllers;
 
 use Core\BaseController;
 use app\models\Post;
+use app\models\Tag;
 use app\models\Category;
 use app\models\Comment;
 use app\misc\Generator;
@@ -34,13 +35,14 @@ class IndexController extends BaseController{
           "total"=>ceil($model->count()/10),
           "link"=>"?page={page}"
         ];
+        $h1="نوشته های اخیر";
         $this->view("index.html",["title"=>"کد برای زندگی","posts"=>$posts,
-        "categories"=>Generator::category_nav($catList),"seo_items"=>$seo_items,"pagination"=>$pagination]);
+        "categories"=>Generator::category_nav($catList),"seo_items"=>$seo_items,"pagination"=>$pagination,"h1"=>$h1]);
     }
 
     public function post($slug){
         $model=new Post();
-        $post=$model->select()->where("slug",$slug)->get()[0];
+        $post=$model->select()->where("slug",urldecode($slug))->get()[0];
         $comments=$post->comments();
         $seo_items=[
           "description"=>$post->description,
@@ -54,10 +56,9 @@ class IndexController extends BaseController{
           ]
         ];
         $catList=G::get_category_tree();
-
         $this->view("post.html",
         ["title"=>$post->title,"post"=>$post,"comments"=>$comments,
-        "categories"=>Generator::category_nav($catList),"seo_items"=>$seo_items]);
+        "categories"=>Generator::category_nav($catList),"seo_items"=>$seo_items,"tags"=>$post->Tags()]);
     }
 
     public function comment($post_id,Request $request){
@@ -91,8 +92,49 @@ class IndexController extends BaseController{
 
         $category=new Category();
         $category=$category->select()->where("id",$id)->first();
+        
+        $description=($category->description)?html_entity_decode(strip_tags($category->description)):"دسته بندی ".$category->name." | code4life";
+        $seo_items=[
+          "description"=>$description,
+          "canonical"=>BASEURL."/category/".$category->id,
+          "og"=>[
+            "title"=>$category->name,
+            "description"=>$description,
+            "locale"=>"fa_IR"
+          ]
+        ];
+
         $this->view("category.html",["title"=>$category->name,"category"=>$category,"posts"=>$posts,
-        "categories"=>Generator::category_nav(G::get_category_tree()),"pagination"=>$pagination]);
+        "categories"=>Generator::category_nav(G::get_category_tree()),"pagination"=>$pagination,"seo_items"=>$seo_items]);
+    }
+
+    public function tag($id,Request $request){
+      $tag=new Tag();
+      $tag=$tag->select()->where("id",$id)->first();
+
+      $page=($request->page)?$request->page:1;
+      $per_page=10;
+
+      $posts=$tag->posts($id)->sort("created_at","DESC")->paginate($page,$per_page);
+      $seo_items=[
+        "description"=>"کد برای زندگی | برچسب $tag->name",
+        "canonical"=>BASEURL,
+        "og"=>[
+          "title"=>"کد برای زندگی | $tag->name",
+          "description"=>"کد برای زندگی | برچسب $tag->name",
+          "type"=>"website",
+          "locale"=>"fa_IR"
+        ]
+      ];
+      $catList=G::get_category_tree();
+      $pagination=[
+        "current"=>$page,
+        "total"=>ceil($posts->count()/10),
+        "link"=>"?page={page}"
+      ];
+      $h1="برچسب $tag->name";
+      $this->view("index.html",["title"=>"کد برای زندگی","posts"=>$posts->get(),
+      "categories"=>Generator::category_nav($catList),"seo_items"=>$seo_items,"pagination"=>$pagination,"h1"=>$h1]);
     }
 
     public function invalidateCache(){

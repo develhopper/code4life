@@ -1,16 +1,19 @@
 @extends('partials/base.html')
 
 @section('content')
-  <h2 class="rtl">نوشته های اخیر</h2>
+  <h1 class="rtl">کد برای زندگی | {{$h1}}</h1>
     @foreach($posts as $post)
     <a href="/p/{{$post->slug}}" class="article rtl">
       <h2 class="article-title">{{$post->title}}</h2>
       <div class="article-body">{{$post->description}}</div>
+      <div class="col ltr">
+        <small class="mr-auto fdigit">{{$post->jdate()}}</small>
+      </div>
     </a>
     @endforeach
-    <ul class="pagination">
+    <div class="pagination">
 
-    </ul>
+    </div>
 @endsection
 
 @section('js')

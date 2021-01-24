@@ -2,14 +2,15 @@
 namespace app\providers;
 
 use Core\handler\Session;
+use Core\handler\Reqeust;
 use app\models\Stat;
 
 class StatProvider{
     
-    public static function boot(){
+    public static function boot($request){
         if(isset(Session::get("current_route")["no_stat"]))
             return;
-        $uri=$_REQUEST["url"];
+        $uri=$request->url;
         if(empty($uri))
             $uri="/";
         $stat=new Stat();

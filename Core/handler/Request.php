@@ -2,7 +2,13 @@
 namespace Core\handler;
 
 class Request{
-   
+
+    public $url;
+
+    public function __construct(){
+        $this->url=trim($_SERVER['REQUEST_URI'],"/");
+    }
+
     public function __get($key){
         if(isset($_REQUEST[$key]))
             return $_REQUEST[$key];

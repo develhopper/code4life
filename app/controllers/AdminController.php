@@ -220,7 +220,7 @@ class AdminController extends BaseController{
             $category=new Category();
             $category->name=$request->title;
             $category->slug=slug($request->title);
-            $category->description=$request->description;
+            $category->description=_e($request->description);
             if(!empty($request->parent[0])){
                 $category->parent_id=$request->parent[0];
             }

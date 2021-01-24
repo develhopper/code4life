@@ -2,6 +2,7 @@
 namespace app\models;
 
 use Core\Model;
+use app\models\Tag;
 use Jalalib\JDF;
 
 class Post extends Model{
@@ -79,8 +80,9 @@ class Post extends Model{
     public function Tags($cols=null){
         if($cols==null)
             $cols="tags.id,tags.name";
-        $this->query="select $cols from tags left join posts_tags on tags.id=tag_id where post_id=$this->id";
-        return $this;
+        $tag=new Tag();
+        $tag->query="select $cols from tags left join posts_tags on tags.id=tag_id where post_id=$this->id";
+        return $tag->get();
     }
 
     public function Categories(){

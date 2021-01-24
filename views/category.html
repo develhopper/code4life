@@ -3,7 +3,7 @@
 @section('content')
     @if($category->description)
     <div class="article rtl featured">
-        <h2 class="article-title">{{$category->name}}</h2>
+        <h1 class="article-title">{{$category->name}}</h1>
         <div class="article-body">{{$category->description}}</div>
     </div>
     @endif
@@ -13,13 +13,13 @@
         <div class="article-body">{{$post->description}}</div>
     </a>
     @endforeach
-    <ul class="pagination">
+    <div class="pagination">
 
-    </ul>
+    </div>
 @endsection
 
 @section('js')
-  <script type="text/javascript">
+  <script>
     {{ "make_pagination('.pagination',$pagination[current],$pagination[total],'$pagination[link]');"}}
   </script>
 @endsection

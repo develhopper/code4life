@@ -5,7 +5,7 @@
     <h1 class="article-title">{{$post->title}}</h1>
     <div class="article-body">{{_d($post->body)}}</div>
     <div class="article-footer">
-        <div class="row">{{$post->jdate()}}</div>
+        <div class="row ltr fdigit">{{$post->jdate()}}</div>
         <div class="row">
             <form action="/c/{{$post->id}}" method="POST">
                 <p>نظر خود  را بنویسید</p>
@@ -30,6 +30,15 @@
 
 </div>
 
+@endsection
+
+@section('sidebar')
+    <h4>برچسب ها</h4>
+    <div class="row tags">
+        @foreach($tags as $tag)
+            <a href="/tag/{{$tag->id}}" class="tag">{{$tag->name}}</a>
+        @endforeach
+    </div>
 @endsection
 
 @section('js')
