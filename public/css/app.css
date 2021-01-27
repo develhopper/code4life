@@ -105,6 +105,9 @@ a.tag{
 	margin-top: 15px;
 }
 
+.margin-0{
+	margin: 0;
+}
 .category {
 	margin: 5px;
 	margin-top: 10px;
@@ -165,8 +168,13 @@ a.tag{
 }
 
 footer {
-	margin-top: 5px;
-	box-shadow: 0 -1px 3px black;
+	margin:20px 15px 5px 15px;
+	border-top: 6px solid;
+	border-left: 6px solid;
+	border-right: 6px solid;
+	border-color: #BD1E1E;
+	border-radius: 5px;
+	padding: 5px;
 }
 
 a {
