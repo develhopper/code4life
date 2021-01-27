@@ -133,7 +133,7 @@ class IndexController extends BaseController{
         "link"=>"?page={page}"
       ];
       $h1="برچسب $tag->name";
-      $this->view("index.html",["title"=>"کد برای زندگی","posts"=>$posts->get(),
+      $this->view("index.html",["title"=>"$tag->name","posts"=>$posts->get(),
       "categories"=>Generator::category_nav($catList),"seo_items"=>$seo_items,"pagination"=>$pagination,"h1"=>$h1]);
     }
 
