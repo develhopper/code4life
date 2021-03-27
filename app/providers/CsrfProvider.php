@@ -7,7 +7,7 @@ use Core\handler\Session;
 class CsrfProvider{
     
     public static function boot(){
-        if(DEBUG)
+        if(getenv('DEBUG') == true)
             return;
         $current_route=Session::get("current_route");
         if(in_array($current_route['method'],["PUT","PATCH","DELETE"]) && $current_route["csrf"]){

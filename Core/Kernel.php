@@ -49,7 +49,7 @@ class Kernel
         $middles=$this->route['middleware'];
         if(is_string($middles)){
             $middleware=$this->middlewares[$middles];
-            $middleware::next($this->$request);    
+            $middleware::next($this->request);    
         }else if(is_array($middles)){
             foreach($middles as $m){
                 $middleware = $this->middlewares[$m];

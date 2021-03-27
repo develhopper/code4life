@@ -20,7 +20,8 @@ class BaseController{
     }
 
     public function view($name,$params=[]){
-        $primal=Primal::getInstance(["views_dir"=>VIEWS_DIR,"cache_dir"=>CACHE_DIR]);
+        $primal=Primal::getInstance(["views_dir"=>BASEDIR.getenv('VIEWS_DIR'),
+        "cache_dir"=>BASEDIR.getenv('CACHE_DIR')]);
         $primal->view($name,$params);
     }
 

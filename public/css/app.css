@@ -47,10 +47,21 @@ body::-webkit-scrollbar-thumb
 	padding-right:5px;
 }
 
+a.article{
+	border-right: 30px solid #387780;
+    padding: 5px;
+    margin: 5px;
+    margin-top: 20px;
+    border-radius: 5px;
+    border-bottom: 3px solid #387780;
+    border-top: 3px solid #387780;
+}
+
 .article{
 	border-right: 6px solid #387780;
     padding: 5px;
 	margin: 5px;
+	margin-top:20px;
 	border-radius: 5px;
 }
 .article.featured{

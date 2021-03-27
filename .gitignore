@@ -1,6 +1,11 @@
+.env
 /vendor/
 composer.lock
 config.php
 setup.php
-storage/*
-public/cache/*
+storage/posts/*
+!storage/posts/.gitkeep
+storage/thumbnails/*
+!storage/thumbnails/.gitkeep
+storage/cache/*
+!storage/cache/.gitkeep
