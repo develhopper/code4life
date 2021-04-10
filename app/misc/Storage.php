@@ -4,10 +4,10 @@ namespace app\misc;
 class Storage{
 
     public function mkdir($dir){
-        if(file_exists(UPLOAD_DIR.$dir))
+        if(file_exists(BASEDIR.getenv('UPLOAD_DIR').$dir))
             return;
         else{
-            mkdir(UPLOAD_DIR.$dir,0777,true);
+            mkdir(BASEDIR.getenv('UPLOAD_DIR').$dir,0777,true);
         }
     }
 
@@ -15,7 +15,7 @@ class Storage{
         $this->mkdir($path);
         $ext=pathinfo($file["name"],PATHINFO_EXTENSION);
         $file_name=$path."/".uniqid().".$ext";
-        $dest=UPLOAD_DIR.$file_name;
+        $dest=BASEDIR.getenv('UPLOAD_DIR').$file_name;
         if(move_uploaded_file($file['tmp_name'],$dest))
             return $file_name;
     }
@@ -23,7 +23,7 @@ class Storage{
     public function listing($path){
         $types=[
             "code"=>["html","php","css","js"],
-            "picture"=>["png","jpg","jpeg"],
+            "picture"=>["png","jpg","jpeg","ico"],
             "video"=>["mp4"],
             "music"=>["mp3"],
             "text"=>["txt"],
@@ -106,6 +106,10 @@ class Storage{
         if(!$finfo)
             return false;
         return substr(finfo_file($finfo,$path),0,4)=="text" || filesize($path)==0;
+    }
+
+    public static function max_size($path,$bytes){
+        return filesize($path)<=$bytes;
     }
 
     public function FileSizeConvert($bytes){

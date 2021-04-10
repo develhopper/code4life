@@ -9,6 +9,7 @@ Route::get("category","ApiController@category");
 
 Route::post("file/listing","FileController@listing",$admin);
 Route::post("file/get_url","FileController@get_url",$admin);
+Route::get("file/get_binary","FileController@get_binary_content",$admin);
 
 Route::post("file/make_dir","FileController@make_dir",$admin);
 Route::post("file/make_file","FileController@make_file",$admin);

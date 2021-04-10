@@ -7,7 +7,7 @@ use app\misc\Storage;
 class FileController extends BaseController{
     
     public function listing(Request $request){
-        $path=realpath(($request->path!="null")?$request->path:UPLOAD_DIR);
+        $path=realpath(($request->path!="null")?$request->path:BASEDIR.getenv('UPLOAD_DIR'));
         $storage=new Storage();
         $this->json($storage->listing($path));
     }
@@ -72,6 +72,18 @@ class FileController extends BaseController{
             else
                 $this->json(["message"=>"this file is not readable"],400);
         }
+    }
+
+    public function get_binary_content(Request $request){
+        if($request->path && file_exists($request->path))
+            if(Storage::max_size($request->path,5*1024*1024)){
+                header('Content-Type: '.mime_content_type($request->path));
+                header('Content-Length: ' . filesize($request->path));
+                readfile($request->path);
+                exit;
+            }else{
+                $this->json(["message"=>"viewing files larger than 5Mb is not allowed"],400);
+            }
     }
 
     public function put_content(Request $request){

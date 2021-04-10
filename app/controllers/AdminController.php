@@ -85,7 +85,7 @@ class AdminController extends BaseController{
         $post=new Post();
         $post->title=_e($request->title);
         
-        if($request->has("slug") && !is_null($request->slug))
+        if($request->has("slug") && !empty($request->slug))
             $post->slug=slug($request->slug);
             else
                 $post->slug=slug($request->title);
@@ -138,8 +138,8 @@ class AdminController extends BaseController{
         $categories=$post->Categories()->execute()->fetchAll(\PDO::FETCH_COLUMN);
 
         
+        $tags_diff=G::array_diff2($tags,$request->tags);
         if($request->tags){
-            $tags_diff=G::array_diff2($tags,$request->tags);
             $post_tags=[];
             $description=($request->description)?$request->description:"''";
             if(isset($tags_diff['added'])){
@@ -149,17 +149,19 @@ class AdminController extends BaseController{
                     $post->addTags($post_tags);
                 }
             }
-            if(isset($tags_diff['removed']))
-                $post->removeTags($tags_diff['removed']);
         }
+
+        if(isset($tags_diff['removed']))
+                $post->removeTags($tags_diff['removed']);
         
+        $categories_diff=G::array_diff2($categories,$request->categories);
         if($request->categories){
-            $categories_diff=G::array_diff2($categories,$request->categories);
             if(isset($categories_diff['added']))
                 $post->addCategories($categories_diff['added']);
-            if(isset($categories_diff['removed']))
-                $post->removeCategories($categories_diff['removed']);
         }
+        
+        if(isset($categories_diff['removed']))
+                $post->removeCategories($categories_diff['removed']);
         $this->view("message.html",["title"=>"انجام شد","message"=>"انجام شد :)","color"=>"success","link"=>"/admin"]);
     }
     

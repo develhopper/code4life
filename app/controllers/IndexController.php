@@ -9,6 +9,7 @@ use app\models\Comment;
 use app\misc\Generator;
 use Core\handler\Request;
 use Core\handler\Session;
+use Core\handler\Error;
 use app\misc\G;
 
 class IndexController extends BaseController{
@@ -42,7 +43,10 @@ class IndexController extends BaseController{
 
     public function post($slug){
         $model=new Post();
-        $post=$model->select()->where("slug",urldecode($slug))->get()[0];
+        $post=$model->select()->where("slug",urldecode($slug))->first();
+        if(!$post){
+          Error::send(404);
+        }
         $comments=$post->comments();
         $seo_items=[
           "description"=>$post->description,
@@ -50,15 +54,18 @@ class IndexController extends BaseController{
           "og"=>[
             "title"=>$post->title,
             "description"=>$post->description,
-            "image"=>BASEURL."/storage".$post->thumbnail,
             "type"=>"article",
             "locale"=>"fa_IR"
           ]
         ];
+
+        if($post->thumbnail){
+          $seo_items['og']["image"]=BASEURL."/storage".$post->thumbnail;
+        }
         $catList=G::get_category_tree();
         $this->view("post.html",
         ["title"=>$post->title,"post"=>$post,"comments"=>$comments,
-        "categories"=>Generator::category_nav($catList),"seo_items"=>$seo_items,"tags"=>$post->Tags()]);
+        "categories"=>Generator::category_nav($catList),"seo_items"=>$seo_items,"tags"=>$post->Tags()->get()]);
     }
 
     public function comment($post_id,Request $request){

@@ -191,17 +191,15 @@ function viewas(context){
 /** image viewer */
 function imageViewer(context){
     var path=$(context).attr("data-path");
-    call("/api/file/get_url","POST",{path:path},function(data){
-        var viewer=$("<div class='dialog imageviewer'></div>");
-            $(viewer).append($("<div class='viewer-title'></div>")
-            .append($("<span></span>").text($(context).find(".name").text()))
-            .append("<span class='icon-cancel viewer-close'></span>"));
-            var img=new Image();
-            img.src=data.url;
-            $(viewer).append($("<div></div>").addClass("body").append(img));
-            $(".viewer-container").append(viewer);
-            bringUp();
-    });
+    var viewer=$("<div class='dialog imageviewer'></div>");
+    $(viewer).append($("<div class='viewer-title'></div>")
+    .append($("<span></span>").text($(context).find(".name").text()))
+    .append("<span class='icon-cancel viewer-close'></span>"));
+    var img=new Image();
+    img.src=baseurl+"/api/file/get_binary?path="+encodeURIComponent(path);
+    $(viewer).append($("<div></div>").addClass("body").append(img));
+    $(".viewer-container").append(viewer);
+    bringUp();
 }
 
 function editor(context){

@@ -22,6 +22,8 @@ class Post extends Model{
     }
 
     public function addTags($tags){
+        if(!$tags)
+            return;
         if($this->id){
             $model=new Model();
             $model->query="insert ignore into posts_tags (post_id,tag_id) values ";
@@ -35,6 +37,8 @@ class Post extends Model{
     }
 
     public function removeTags($tags){
+        if(!$tags)
+            return;
         if($this->id){
             $model=new Model();
             foreach($tags as $key=>$tag){
@@ -48,6 +52,8 @@ class Post extends Model{
 
 
     public function addCategories($categories){
+        if(!$categories)
+            return;
         if($this->id){
             $model=new Model();
             $model->query="insert ignore into posts_categories (post_id,category_id) values ";
@@ -61,11 +67,13 @@ class Post extends Model{
         }
     }
 
-    public function removeCategories($categoreis){
+    public function removeCategories($categories){
+        if(!$categories)
+            return;
         if($this->id){
             $model=new Model();
             $model->query="delete posts_categories from posts_categories where post_id=$this->id and category_id in ";
-            $model->query.="(".implode(",",$categoreis).")";
+            $model->query.="(".implode(",",$categories).")";
             $model->execute();
         }
     }
@@ -82,7 +90,7 @@ class Post extends Model{
             $cols="tags.id,tags.name";
         $tag=new Tag();
         $tag->query="select $cols from tags left join posts_tags on tags.id=tag_id where post_id=$this->id";
-        return $tag->get();
+        return $tag;
     }
 
     public function Categories(){

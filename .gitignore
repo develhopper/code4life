@@ -3,9 +3,5 @@
 composer.lock
 config.php
 setup.php
-storage/posts/*
-!storage/posts/.gitkeep
-storage/thumbnails/*
-!storage/thumbnails/.gitkeep
 storage/cache/*
 !storage/cache/.gitkeep

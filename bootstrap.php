@@ -5,7 +5,7 @@ use Denver\Env;
 
 Env::setup(__DIR__."/.env");
 
-define("BASEURL", $_SERVER['SERVER_NAME']);
+define("BASEURL", getenv("BASEURL"));
 define("BASEDIR",__DIR__);
 
 

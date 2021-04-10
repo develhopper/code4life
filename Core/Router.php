@@ -51,6 +51,9 @@ class Router{
             if(isset($_REQUEST['_method']))
                 $reqeust_method=$_REQUEST['_method'];
         }
+        
+        $name = explode('?',$name)[0];
+        
         if (empty($name))
             $name = "/";
         foreach ($this->routes[$reqeust_method] as $r) {
