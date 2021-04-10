@@ -1,6 +1,5 @@
 var current_dir;
 var clipboard={};
-var baseurl="http://code4life.com";
 $(function(){
     /** close context menu */
     $("body").click(function(){
@@ -196,7 +195,7 @@ function imageViewer(context){
     .append($("<span></span>").text($(context).find(".name").text()))
     .append("<span class='icon-cancel viewer-close'></span>"));
     var img=new Image();
-    img.src=baseurl+"/api/file/get_binary?path="+encodeURIComponent(path);
+    img.src="/api/file/get_binary?path="+encodeURIComponent(path);
     $(viewer).append($("<div></div>").addClass("body").append(img));
     $(".viewer-container").append(viewer);
     bringUp();
